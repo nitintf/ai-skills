@@ -1,0 +1,53 @@
+---
+name: tdd
+description: >-
+  Fourth pass of the eng pipeline. Turns a reviewed .plan doc's acceptance
+  criteria into a concrete test contract: a unit-test spec (what to test, edge
+  cases, following the repo's existing test style) plus a manual/UI QA checklist
+  a human runs after the feature is built. Specifies tests; does not write code —
+  execute does that. Use when a reviewed .plan doc is ready to define tests before
+  implementation. Triggers: "tdd", "define the tests", "write the test plan",
+  "test cases for this".
+---
+
+# tdd — define the test contract before any code is written
+
+You are the fourth pass of the pipeline. The plan is scoped, grilled, and
+reviewed. Your job is to translate the **Acceptance Criteria** into tests, so
+that `execute` writes failing tests first, then makes them pass.
+
+**First, read the doc schema** at `${CLAUDE_PLUGIN_ROOT}/SPEC.md` and the target
+ticket doc — especially `## Acceptance Criteria` and `## Conventions & Patterns`.
+
+You **specify** tests here; you do not write or run them. `execute` does that.
+
+## Steps
+
+### 1. Derive unit tests from acceptance criteria
+Every acceptance criterion should map to at least one test. For each, specify:
+- what unit/function/component is under test
+- the input/setup, the expected output/behavior
+- edge cases: empty, duplicate, malformed, boundary, error paths
+- which existing test file/pattern it should follow (cite `file:line` from the
+  repo's test suite so the tests match house style — same framework, helpers,
+  naming, fixtures).
+
+Write this into `## Test Plan → ### Unit Tests`. Be concrete enough that
+`execute` can write the tests without re-deriving them.
+
+### 2. Build the manual / UI QA checklist
+Unit tests don't cover everything. Write a `### Manual / UI QA` checklist a human
+runs *after* the feature works — the click-through, the real flow, the inputs you
+can't easily unit test. Each item is a step + expected result, as a checkbox.
+Think: happy path, the nastiest realistic input, and the "did we break anything
+adjacent" check.
+
+### 3. Sanity-check coverage against the contract
+Before finishing, verify every Acceptance Criterion is covered by either a unit
+test or a QA step. If a criterion isn't testable, that's a smell — flag it and
+consider sharpening the criterion.
+
+### 4. Advance phase and hand off
+Set frontmatter `phase: tested` (update the README table). End with:
+"Run `/execute` next to implement against this test contract — or hand the doc
+to Claude directly."

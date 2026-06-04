@@ -1,0 +1,9 @@
+{
+  "name": "eng",
+  "description": "Plan-to-ship engineering pipeline. Five composable skills (scope, grill, eng-review, tdd, execute) plus an orchestrator (eng-flow). Each is a single pass over a shared markdown doc in the project's .plan folder, so they work solo or chained.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Nitin Panwar",
+    "email": "nitinpanwar0802@gmail.com"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "nitin-ai-skills",
+  "owner": {
+    "name": "Nitin Panwar",
+    "email": "nitinpanwar0802@gmail.com"
+  },
+  "metadata": {
+    "description": "Nitin's personal Claude Code plugins — reusable skill packs for engineering workflows.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "eng",
+      "source": "./eng",
+      "description": "Plan-to-ship engineering pipeline: scope a task into Jira tickets, grill the requirements, review the plan against house conventions, define tests, then implement and verify — all driven off a shared doc in the project's .plan folder."
+    }
+  ]
+}
