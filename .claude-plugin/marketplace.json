@@ -13,6 +13,16 @@
       "name": "eng",
       "source": "./eng",
       "description": "Plan-to-ship engineering pipeline: scope a task into Jira tickets, grill the requirements, review the plan against house conventions, define tests, then implement and verify — all driven off a shared doc in the project's .plan folder."
+    },
+    {
+      "name": "product",
+      "source": "./product",
+      "description": "Product-thinking skills: write staff-level PRDs and slice them into testable user stories. Output can feed the eng pipeline."
+    },
+    {
+      "name": "productivity",
+      "source": "./productivity",
+      "description": "Workflow helpers: catchup on changes, caveman terse mode, session handoff, and standalone plan grilling."
     }
   ]
 }

@@ -1,0 +1,9 @@
+{
+  "name": "productivity",
+  "description": "General workflow helpers: catch up on what changed, compress communication (caveman), hand off a session to a fresh agent, and get grilled on any plan or design.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Nitin Panwar",
+    "email": "nitinpanwar0802@gmail.com"
+  }
+}

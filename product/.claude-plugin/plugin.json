@@ -1,0 +1,9 @@
+{
+  "name": "product",
+  "description": "Product-thinking skills. Write staff-level PRDs and slice them into testable user stories. Standalone, but their output (in .plan/<feature>/) can feed the eng pipeline's /scope.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Nitin Panwar",
+    "email": "nitinpanwar0802@gmail.com"
+  }
+}

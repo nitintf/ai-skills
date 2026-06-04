@@ -33,13 +33,34 @@ The doc schema every skill obeys is the keystone: see [`eng/SPEC.md`](eng/SPEC.m
 
 `.plan/` is committed so the plan lives in history (plan-said-X vs reality-was-Y).
 
+### `product` — product-thinking skills
+
+Standalone from `eng`, but their output (written to `.plan/<feature>/`) can feed
+`/scope`.
+
+| Skill           | What it does                                                      |
+|-----------------|------------------------------------------------------------------|
+| `/prd`          | Write a staff-level PRD (Google/Meta/Amazon bar): problem, measurable goals & non-goals, success metrics, prioritized requirements, risks, rollout. Supports the Amazon PR/FAQ format. NOT in the eng doc schema. |
+| `/user-stories` | Slice a PRD/epic into INVEST user stories with Gherkin acceptance criteria, ordered with dependencies. Feeds `/scope`. |
+
+### `productivity` — workflow helpers
+
+| Skill        | What it does                                                         |
+|--------------|---------------------------------------------------------------------|
+| `/catchup`   | Summarize what changed (branch / PR / commit range / file) so you can resume or review fast. |
+| `/caveman`   | Ultra-terse communication mode — ~75% fewer tokens, full technical accuracy. Persists until "normal mode". |
+| `/handoff`   | Compact the conversation into a handoff doc (saved to the OS temp dir) for a fresh agent to continue. |
+| `/grill-me`  | Standalone relentless interview on any plan/design (not tied to `.plan` docs — use eng's `/grill` for those). |
+
 ## Install
 
-Add this repo as a marketplace, then install the `eng` plugin:
+Add this repo as a marketplace, then install the plugins you want:
 
 ```
 /plugin marketplace add nitintf/ai-skills
 /plugin install eng@nitin-ai-skills
+/plugin install product@nitin-ai-skills
+/plugin install productivity@nitin-ai-skills
 ```
 
 (Or `/plugin marketplace add <path-to-local-clone>` while developing.)
