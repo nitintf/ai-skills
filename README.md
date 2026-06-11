@@ -20,8 +20,10 @@ work solo or chained. The doc holds all state; the skills communicate through it
 | `/tdd`        | Turn acceptance criteria into a test contract: unit-test spec + manual/UI QA checklist. Specifies tests; doesn't write them. |
 | `/execute`    | Write the specified tests (failing first), implement against the plan & house conventions, make tests pass, verify acceptance criteria, run QA, update the doc. |
 | `/eng-flow`   | Orchestrator — runs scope → grill → eng-review → tdd → execute off the doc's `phase`, pausing at a gate between each. Resumes wherever you left off. |
+| `/pr-review`  | **Standalone** (not in the pipeline). Staff/principal-engineer review of the current branch vs main: reads commits + diff, pulls PR context via `gh`, and reviews correctness → architecture → **consistency with house style**, separating blocking issues from nits. Doesn't touch `.plan` docs. |
 
-The doc schema every skill obeys is the keystone: see [`eng/SPEC.md`](eng/SPEC.md).
+The five pipeline skills obey the doc schema in [`eng/SPEC.md`](eng/SPEC.md);
+`/pr-review` is independent of it.
 
 #### Doc layout (in the target project)
 
