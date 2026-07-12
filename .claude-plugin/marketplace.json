@@ -23,6 +23,11 @@
       "name": "productivity",
       "source": "./productivity",
       "description": "Workflow helpers: catchup on changes, caveman terse mode, session handoff, and standalone plan grilling."
+    },
+    {
+      "name": "brain",
+      "source": "./brain",
+      "description": "Second-brain capture for an Obsidian vault: dump what you just learned and /note places it in the right folder, writes it in your own voice, links it, and updates the index hub."
     }
   ]
 }
