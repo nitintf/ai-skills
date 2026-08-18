@@ -28,8 +28,11 @@ it in the eng doc schema.
 ### 1. Gather context (don't write yet)
 - Understand the idea from the user. Pull in any existing material (linked docs,
   the codebase, prior art).
-- If `enernet-personas` (or a personas skill) is available and relevant, load it
-  so the PRD references real personas, not invented ones.
+- **If a personas skill is installed** (check the available skills for one — some
+  orgs ship their own, e.g. a `*-personas` skill), load it so the PRD references
+  real personas rather than invented ones. If there isn't one, ask the user who
+  the actual users are instead of inventing a persona; a fabricated persona is
+  worse than a plainly-described user segment.
 
 ### 2. Grill the gaps before writing
 A PRD is only as good as its inputs. Ask the user — in small batches, one topic

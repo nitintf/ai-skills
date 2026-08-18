@@ -21,6 +21,12 @@ code, and to leave the plan provably better.
 ticket doc, and the `## Codebase Touchpoints` / `## Conventions & Patterns` it
 references. If multiple tickets, review each (or ask which).
 
+**Also read `.plan/_conventions.md`** if it exists (protocol in `SPEC.md` §6).
+It is the shared answer to "how does this repo do things", and dimension 2 below
+is where it earns its keep — you're checking the plan against a recorded
+standard rather than one you invent on the spot. Verify against real code where
+the plan's claims are load-bearing, and append anything the cache is missing.
+
 ## Review dimensions — rate each 0-10
 
 For every dimension: give a score, state the one or two things that would make
@@ -29,10 +35,15 @@ it a 10, then **apply those fixes to the doc** (don't just critique).
 1. **Architecture & approach** — is the design sound, simple, and the right
    shape for the problem? Any over- or under-engineering?
 2. **Consistency with the codebase** — THE dimension you must not skip. Does the
-   plan match how this repo already does these things? Re-read the real code:
+   plan match how this repo already does these things? Start from
+   `.plan/_conventions.md` (the checklist behind it is in
+   `${CLAUDE_PLUGIN_ROOT}/CONVENTIONS.md`), and re-read the real code where it
+   matters:
    - How are APIs/endpoints/services defined here? Does the plan follow it?
    - How are React components structured (props, state, styling, file layout)?
    - Naming, error handling, logging, config, folder conventions, test style.
+   - **Is the plan reinventing a primitive that already exists?** Check the
+     cache's "existing primitives" table. This is the most common failure.
    Cite `file:line` for the pattern the plan should follow. The goal: code that
    looks like the team wrote it, not generic boilerplate.
 3. **Edge cases & failure modes** — empty/duplicate/malformed inputs, partial

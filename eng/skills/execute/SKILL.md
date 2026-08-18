@@ -19,6 +19,13 @@ contract. Your job is to build it the way the plan says and prove it works.
 ticket doc end to end — Acceptance Criteria, Test Plan, Codebase Touchpoints,
 and Conventions & Patterns are your instructions.
 
+**Then read `.plan/_conventions.md`** if it exists (protocol in `SPEC.md` §6).
+The ticket doc carries only the conventions relevant to this ticket; the cache
+has the rest — the test command, the error and logging patterns, the import
+style, and the **existing primitives table**. Check that table before you write
+any helper: reinventing something the repo already has is the most common way
+generated code fails to look like the team wrote it.
+
 ## Steps
 
 ### 0. Pick the ticket & respect dependencies
@@ -54,7 +61,12 @@ the user to confirm. Record outcomes.
 
 ### 6. Close the loop
 - Append to `## Work Log`: what you implemented, **plan-vs-reality** deviations,
-  test results, QA outcomes.
+  test results, QA outcomes. Be specific about where the plan was wrong — that
+  record is the reason `.plan/` is committed.
+- If you discovered a convention the cache doesn't have, append it to
+  `.plan/_conventions.md`.
+- If a decision you made along the way is architecturally significant, suggest
+  `/adr` so it outlives the ticket.
 - Set frontmatter `phase: implemented`; update the README table (phase + branch).
 - Summarize for the user: what shipped, what's verified, anything outstanding.
-  Suggest `/ship` or the project's PR flow if they want to land it.
+  End with: "Run `/ship` to commit, push, and open the PR."

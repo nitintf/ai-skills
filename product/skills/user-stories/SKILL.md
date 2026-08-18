@@ -23,8 +23,9 @@ hand to QA.
 - If a `PRD.md` exists (e.g. in `.plan/<feature-slug>/`), read it.
 - Otherwise take the epic/feature from the user, and explore the codebase or ask
   enough to slice responsibly.
-- Load a personas skill (e.g. `enernet-personas`) if available so stories name
-  real personas, not "the user" generically.
+- Load a personas skill if one is installed (check the available skills for a
+  `*-personas` skill) so stories name real personas, not "the user" generically.
+  If there isn't one, ask who the actual users are rather than inventing them.
 
 ### 2. Build a story map
 Lay out the user's journey as a backbone (the big steps), then slice stories

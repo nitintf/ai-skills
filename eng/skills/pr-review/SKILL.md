@@ -6,10 +6,12 @@ description: >-
   `gh` (PR description, linked issues, CI, existing review threads), then reviews
   the change the way a senior reviewer actually does: correctness and edge cases
   first, then architecture, then — critically — consistency with how THIS codebase
-  already builds things, so the code reads like the team wrote it. Standalone:
-  does NOT touch `.plan` docs or the eng-flow pipeline. Use when the user wants a
-  PR or branch reviewed before it lands. Triggers: "review this PR", "pr review",
-  "review my branch", "review before I merge", "code review this".
+  already builds things, so the code reads like the team wrote it. Runs standalone
+  — but reads the `.plan` doc and conventions cache when they exist, so it can
+  review against the agreed acceptance criteria and record findings that
+  contradict the plan. Use when the user wants a PR or branch reviewed before it
+  lands. Triggers: "review this PR", "pr review", "review my branch", "review
+  before I merge", "code review this".
 ---
 
 # pr-review — review a PR like a staff/principal engineer would
@@ -48,17 +50,29 @@ in isolation hides the bugs that live at the seams.
 ## 2. Learn the house style before you judge
 
 This is what separates a staff review from a linter. Before you call something
-wrong, know how the codebase already does it. For each kind of thing the PR
-touches, find the existing pattern and cite it:
+wrong, know how the codebase already does it.
+
+**Start with `.plan/_conventions.md`** if the repo has one (protocol in
+`${CLAUDE_PLUGIN_ROOT}/SPEC.md` §6) — it's the recorded house style, so your
+review judges against the same standard `/scope` planned against instead of one
+you improvise. Check its `commit:` for staleness. Then verify against real code
+for the specific things this PR touches:
 
 - How are APIs / endpoints / services / handlers defined here?
 - How are components structured (props, state, styling, file layout)?
 - Error handling, logging, config access, validation, async patterns.
 - Naming, folder conventions, and — crucially — the existing **test style**.
+- **Did the PR reinvent an existing primitive?** Check the cache's primitives
+  table against anything new the diff introduces.
 
 The bar: *would a teammate reading this PR be able to tell it was written by
 someone new?* If yes, that's a finding. Point at the file:line of the pattern it
 should have followed.
+
+**If a `.plan` doc exists for this work**, read it too. Reviewing against the
+stated acceptance criteria is far stronger than reviewing the diff alone — you
+can check whether what was built is what was agreed, and spot scope creep against
+the `## Scope → Out` list.
 
 ## 3. Review dimensions
 
@@ -105,7 +119,18 @@ Output to chat (write a file only if asked). Structure it so the author can act:
 - **Open questions** — things you genuinely can't resolve from the diff; ask the
   author rather than guessing their intent.
 
-## 5. Stay honest
+## 5. Close the loop (only if a `.plan` doc exists)
+
+A review that finds the plan was wrong and doesn't record it wastes the finding.
+When a blocking issue **contradicts the plan** — an acceptance criterion that
+isn't actually met, scope that crept past the `Out` list, a convention the plan
+prescribed that turned out not to exist — append a dated entry to the doc's
+`## Work Log` saying so. Don't rewrite the plan's other sections; the Work Log is
+where reality goes.
+
+Ask before writing. If there's no doc, skip this entirely.
+
+## 6. Stay honest
 
 - Don't invent rationale for code you don't understand — say what's unclear and
   ask. A confident-wrong review is worse than a question.

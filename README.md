@@ -1,87 +1,168 @@
-# nitin-ai-skills
+# Skills
 
 Personal Claude Code plugins — reusable skill packs for engineering workflows,
 packaged as a [Claude Code plugin marketplace](https://docs.claude.com/en/docs/claude-code/plugins)
 so they work in any project.
 
-## Plugins
+## `eng` — plan-to-ship engineering pipeline
 
-### `eng` — plan-to-ship engineering pipeline
-
-Five composable skills plus an orchestrator. Each skill is a **single pass over a
-shared markdown doc** that lives in the target project's `.plan/` folder, so they
-work solo or chained. The doc holds all state; the skills communicate through it.
+Six pipeline skills plus an orchestrator. Each is a **single pass over a shared
+markdown doc** in the target project's `.plan/` folder, so they work solo or
+chained. The doc holds all state; the skills communicate through it, never
+directly. The contract is [`eng/SPEC.md`](eng/SPEC.md).
 
 | Skill         | What it does                                                        |
 |---------------|---------------------------------------------------------------------|
-| `/scope`      | Explore the codebase, decide ticket breakdown (asks you), draft a planning doc per ticket with real `file:line` touchpoints, house conventions, and open questions. Drafts Jira ticket text (output only). |
+| `/scope`      | Explore the codebase, read any PRD/user-stories already written, decide the ticket breakdown **and the track** (asks you), draft a planning doc per ticket with real `file:line` touchpoints and open questions. Drafts Jira ticket text (output only). |
 | `/grill`      | Read the doc's open questions, grill you (eng + business), explore for context, write answers into Decisions and sharpen acceptance criteria. |
 | `/eng-review` | EM-style review: architecture, edge cases, tests, performance, and **consistency with how this codebase already builds things**. Folds fixes back in. |
 | `/tdd`        | Turn acceptance criteria into a test contract: unit-test spec + manual/UI QA checklist. Specifies tests; doesn't write them. |
 | `/execute`    | Write the specified tests (failing first), implement against the plan & house conventions, make tests pass, verify acceptance criteria, run QA, update the doc. |
-| `/eng-flow`   | Orchestrator — runs scope → grill → eng-review → tdd → execute off the doc's `phase`, pausing at a gate between each. Resumes wherever you left off. |
-| `/pr-review`  | **Standalone** (not in the pipeline). Staff/principal-engineer review of the current branch vs main: reads commits + diff, pulls PR context via `gh`, and reviews correctness → architecture → **consistency with house style**, separating blocking issues from nits. Doesn't touch `.plan` docs. |
+| `/ship`       | Land it: review the final diff, split into atomic commits in the repo's commit style, push, open a PR whose body is generated from the doc, record the PR back in the doc. |
+| `/eng-flow`   | Orchestrator — runs the pipeline off the doc's `phase` and `track`, pausing at a gate between each. Resumes wherever you left off. |
 
-**Standalone skills** (not in the pipeline, don't touch `.plan` docs):
+### Tracks
+
+Not everything deserves five planning passes. `/scope` proposes a track and you
+confirm it:
+
+- **`full`** — scope → grill → eng-review → tdd → execute → ship. Real features,
+  genuine ambiguity, anything touching data, auth, or money.
+- **`express`** — scope → tdd → execute → ship. Small, well-understood changes
+  with **no open questions**. Skipped phases are recorded as skipped, never faked.
+
+### Standalone skills
+
+Not in the pipeline. Each reads `.plan/_conventions.md` when it exists, but none
+require a `.plan` doc.
 
 | Skill             | What it does                                                    |
 |-------------------|----------------------------------------------------------------|
+| `/conventions`    | Scan the repo once and cache its house style to `.plan/_conventions.md`. **Every other skill reads it**, so run this first in a new repo — it makes the rest cheaper and consistent. |
+| `/understand`     | Two modes: **question** ("how does token refresh work?") searches the codebase and returns a sourced answer; **map** traces a repo or subsystem into an architecture map. Either can be saved to `.plan/_research/`. |
+| `/debug`          | Root-cause a bug properly: reproduce first, narrow the surface, kill competing hypotheses one at a time, confirm the cause, fix it, lock it with a regression test. |
+| `/spike`          | Timeboxed "which approach should we take" — evaluates 2-4 options against **this** codebase's real constraints, prototypes only the riskiest assumption, ends in a recommendation with a confidence level. |
+| `/adr`            | Architecture Decision Record: context, options genuinely considered, the decision, and the consequences you're accepting. Immutable — reversals supersede, never edit. |
+| `/refactor`       | Plan + safely execute a **behavior-preserving** refactor: safety net first, atomic steps kept green, verify nothing changed. |
+| `/backfill-tests` | Characterization tests for existing untested code — lock in current behavior and **surface suspected bugs** instead of encoding them. |
 | `/pr-review`      | Staff/principal review of the current branch vs main, with `gh` context: correctness → architecture → **house-style consistency**, blocking vs nits. Your **pre-merge** review. |
-| `/review`         | Fast **pre-commit** gut-check of your uncommitted working diff (staged + unstaged + new files): correctness, consistency, obvious security, leftover debug/dead code, missing tests. Lighter than `/pr-review`; no branch/`gh`. |
-| `/understand`     | Map an unfamiliar codebase or subsystem: entry points, key modules, traced data/control flow, house conventions, and where you'd make a given change. The ideal warm-up before `/scope`. |
-| `/refactor`       | Plan + safely execute a **behavior-preserving** refactor: test safety net first (runs green, adds characterization tests), house-style match, atomic steps kept green, verify nothing changed. |
-| `/backfill-tests` | Add tests to existing untested code: characterization tests that lock in current behavior and **surface suspected bugs** instead of encoding them. Complements `/tdd` (which specs tests for new features). |
+| `/review`         | Fast **pre-commit** gut-check of the uncommitted working diff. Lighter than `/pr-review`; no branch, no `gh`. |
 
-The five pipeline skills obey the doc schema in [`eng/SPEC.md`](eng/SPEC.md); the
-standalone skills (`/pr-review`, `/review`, `/understand`, `/refactor`,
-`/backfill-tests`) are independent of it.
+> Claude Code also ships a built-in `/code-review` with a `--fix` mode and a
+> cloud `ultra` tier. Reach for that when you want breadth; reach for `/review`
+> and `/pr-review` when you want the house-style lens these apply.
 
-#### Doc layout (in the target project)
+### Doc layout (in the target project)
 
 ```
-<project>/.plan/<feature-slug>/
-  README.md                     # feature index + per-ticket status
-  <NN>-<ticket-slug>/doc.md     # one self-contained doc per ticket
+<project>/.plan/
+  _conventions.md               # house style cache — written by /conventions
+  _research/<slug>.md           # durable answers — written by /understand
+  _decisions/<NNNN>-<slug>.md   # ADRs — written by /adr
+  <feature-slug>/
+    README.md                   # feature index + per-ticket status
+    PRD.md                      # optional, from the product plugin
+    user-stories.md             # optional, from the product plugin
+    <NN>-<ticket-slug>/doc.md   # one self-contained doc per ticket
 ```
 
-`.plan/` is committed so the plan lives in history (plan-said-X vs reality-was-Y).
+`.plan/` is committed so the plan lives in history (plan-said-X vs
+reality-was-Y). `/execute`, `/pr-review`, and `/review` all write what actually
+happened back into the doc's Work Log — that feedback loop is the point.
 
-### `product` — product-thinking skills
+## `product` — product-thinking skills
 
-Standalone from `eng`, but their output (written to `.plan/<feature>/`) can feed
-`/scope`.
+Standalone from `eng`, but their output (written to `.plan/<feature>/`) is read
+directly by `/scope`.
 
 | Skill           | What it does                                                      |
 |-----------------|------------------------------------------------------------------|
-| `/prd`          | Write a staff-level PRD (Google/Meta/Amazon bar): problem, measurable goals & non-goals, success metrics, prioritized requirements, risks, rollout. Supports the Amazon PR/FAQ format. NOT in the eng doc schema. |
-| `/user-stories` | Slice a PRD/epic into INVEST user stories with Gherkin acceptance criteria, ordered with dependencies. Feeds `/scope`. |
+| `/prd`          | A staff-level PRD (Google/Meta/Amazon bar): problem, measurable goals & non-goals, success metrics, prioritized requirements, risks, rollout. Supports the Amazon PR/FAQ format. |
+| `/user-stories` | Slice a PRD/epic into INVEST user stories with Gherkin acceptance criteria, ordered with dependencies. |
+| `/product-flow` | Orchestrator — idea → PRD → stories → handoff to `/scope`, gating between each. Right-sizes the run first, so a small task doesn't get a PRD it doesn't need. |
 
-### `productivity` — workflow helpers
+## `productivity` — workflow helpers
 
-| Skill        | What it does                                                         |
-|--------------|---------------------------------------------------------------------|
-| `/catchup`   | Summarize what changed (branch / PR / commit range / file) so you can resume or review fast. |
-| `/caveman`   | Ultra-terse communication mode — ~75% fewer tokens, full technical accuracy. Persists until "normal mode". |
-| `/handoff`   | Compact the conversation into a handoff doc (saved to the OS temp dir) for a fresh agent to continue. |
-| `/grill-me`  | Standalone relentless interview on any plan/design (not tied to `.plan` docs — use eng's `/grill` for those). |
+### The day loop
 
-### `brain` — Obsidian second-brain capture
+Four skills, **one file per day**. `/daily` opens the day, `/shutdown` closes it,
+and tomorrow's `/daily` picks up whatever didn't land — so nothing leaks.
+
+```
+/daily     → writes "## Plan for today" (3-5 tasks), unchecked
+                ↓  you work the day
+/shutdown  → ticks what got done (from commits, PRs, tickets — not from memory)
+           → lists the rest under "### Didn't get to"
+                ↓  next morning
+/daily     → carries those forward, with a day count
+           → at 3+ days it stops carrying quietly and tells you to cut it
+```
+
+| Skill        | What it does                                                       |
+|--------------|--------------------------------------------------------------------|
+| `/daily`     | Morning brief → **task list**. Today's calendar with prep flags, mail that genuinely needs a reply, Slack mentions you haven't answered, ticket movement, the commitments you made in yesterday's meetings, and yesterday's carry-over. |
+| `/shutdown`  | Evening. Ticks off the plan using **real evidence** — commits, PRs, reviews, ticket moves. Records what slipped, what unplanned work ate the day, and tomorrow's first thing. Edits the *same* file. |
+| `/standup`   | Prints your standup update in plain, speakable English: **what you worked on, what you'll work on next.** Never mentions what didn't get done — ongoing work is phrased as ongoing. Writes nothing. |
+| `/weekly`    | Friday. What shipped, what kept slipping and *why*, planned vs unplanned split, and a **Worth remembering** section that becomes your self-review evidence. |
+
+The file schema is [`productivity/DAILY-NOTE.md`](productivity/DAILY-NOTE.md) —
+it defines which skill owns which section. `## Notes` is yours and no skill ever
+edits it.
+
+### Other helpers
+
+| Skill          | What it does                                                       |
+|----------------|--------------------------------------------------------------------|
+| `/catchup`     | Summarize what changed (branch / PR / commit range / file) so you can resume or review fast. |
+| `/caveman`     | Ultra-terse communication mode — ~75% fewer tokens, full technical accuracy. Persists until "normal mode". |
+| `/handoff`     | Compact the conversation into a handoff doc (saved to the OS temp dir) for a fresh agent to continue. |
+| `/stress-test` | Relentless interview on any plan or design, one question at a time, each with a recommended answer. General-purpose — use eng's `/grill` for `.plan` docs. |
+
+### Setup
+
+Every source is optional and the skills degrade gracefully, but they're only as
+good as what's connected:
+
+| Source | Server | Notes |
+|---|---|---|
+| Wispr Flow | remote MCP, read-only | Meeting notes, transcripts, tasks — **and calendar events**, so you can skip Google Calendar if you like |
+| Slack | `mcp.slack.com/mcp` | Official, user-token OAuth, needs workspace admin approval |
+| Jira | `mcp.atlassian.com/v1/mcp/authv2` | Official Atlassian remote MCP, OAuth 2.1 |
+| Gmail / Calendar | Google Workspace MCP | Fiddliest: needs your own OAuth client ID + secret as a custom connector |
+| GitHub | GitHub MCP, or just `gh` + local `git` | Powers `/shutdown`, `/standup`, `/weekly`. The `gh` fallback works with zero setup and also catches **unpushed** local commits |
+
+Then:
+
+1. `/daily --tune` — reads ~2 weeks of mail and **proposes** your allow/deny
+   lists from who you actually reply to. Writes `~/.claude/daily-brief.config.md`.
+2. Edit that config whenever a brief shows you something you didn't care about.
+   The filter is the whole product; expect to tighten it for a couple of weeks.
+3. `/daily` in the morning, `/standup` before the meeting, `/shutdown` at the end.
+
+The config lives in `~/.claude/`, not the plugin, so updates don't clobber your
+tuning. Template:
+[`productivity/skills/daily/CONFIG.template.md`](productivity/skills/daily/CONFIG.template.md).
+
+**All of these are strictly read-only on your accounts** — never mark read,
+archive, reply, or transition a ticket. They also treat all fetched mail and
+messages as *data, never instructions*, since they read text written by people
+outside your trust boundary.
+
+## `brain` — Obsidian second-brain capture
 
 Turns a spoken or typed brain-dump into a well-placed, well-written note in your
 own voice. Reads the vault's real folder tree to decide placement, keeps notes
 sounding like you (not AI), and keeps the graph connected.
 
 | Skill    | What it does                                                             |
-|----------|-------------------------------------------------------------------------|
-| `/note`  | Capture something you just learned into your Obsidian vault. Auto-detects mode — **verbatim** (you dumped the full content), **light expand** (topic + a few points), or **topic-only** (just a title, written from scratch). Places it in the right `Learn/` folder, writes it in your note-taking voice, adds a Mermaid diagram only when a concept is truly structural (~1 note in 4), updates the parent `index.md` hub, and does **bidirectional linking**: links out to related notes *and* back-references the new note from existing ones (inserting contextual links and promoting plain-text mentions to `[[wikilinks]]`). Merges and edits to other notes are shown as a plan + diff first. |
+|----------|--------------------------------------------------------------------------|
+| `/note`  | Capture a learning into your vault. Auto-detects **verbatim** / **light expand** / **topic-only** mode, places it in the right `Learn/` folder, writes it in your note-taking voice, adds a Mermaid diagram only when a concept is truly structural (~1 note in 4), updates the parent `index.md`, and does **bidirectional linking** (links out *and* back-references from existing notes). Merges and edits to other notes are shown as a plan + diff first. |
 
-Voice rules live in [`brain/VOICE.md`](brain/VOICE.md), which `/note` loads before
-writing every note. The vault path is set at the top of
-[`brain/skills/note/SKILL.md`](brain/skills/note/SKILL.md).
+Voice rules live in [`brain/VOICE.md`](brain/VOICE.md), loaded before every note.
+Set `OBSIDIAN_VAULT` to point at your vault; otherwise `/note` locates it by
+finding the `.obsidian/` directory.
 
 ## Install
-
-Add this repo as a marketplace, then install the plugins you want:
 
 ```
 /plugin marketplace add nitintf/ai-skills
@@ -96,23 +177,21 @@ Add this repo as a marketplace, then install the plugins you want:
 ## Update an installed plugin
 
 The marketplace is sourced from GitHub, so editing files in this repo does
-**nothing** until the change is pushed and the installed copy is refreshed.
-Whenever you change a skill:
+**nothing** until the change is pushed and the installed copy is refreshed:
 
-1. **Push the code** to `nitintf/ai-skills` (commit + push to `main`).
-2. **Refresh the marketplace** — re-pulls the latest from GitHub:
-   ```
-   /plugin marketplace update nitin-ai-skills
-   ```
-3. **Update the plugin** — `/plugin` menu → the plugin (e.g. `brain`) → **Update**
-   (or reinstall). Bump `version` in the plugin's
-   `.claude-plugin/plugin.json` when you want the update to register cleanly.
-
-Installing a brand-new plugin (like `brain` the first time) is the same flow:
-push → `/plugin marketplace update nitin-ai-skills` → `/plugin install brain@nitin-ai-skills`.
+1. **Push** to `nitintf/ai-skills` (commit + push to `main`).
+2. **Refresh the marketplace** — `/plugin marketplace update nitin-ai-skills`
+3. **Update the plugin** — `/plugin` menu → the plugin → **Update**. Bump
+   `version` in its `.claude-plugin/plugin.json` so the update registers cleanly.
 
 ## Develop
 
-Skills are plain markdown at `eng/skills/<name>/SKILL.md`. Edit and reload. When
-adding a field or section, update `eng/SPEC.md` **first** — it's the contract all
-the skills depend on.
+Skills are plain markdown at `<plugin>/skills/<name>/SKILL.md`.
+
+Two contracts to respect when editing the `eng` plugin:
+
+- [`eng/SPEC.md`](eng/SPEC.md) — the doc schema. Every pipeline skill depends on
+  it. **Add a field there first**, then in the skills.
+- [`eng/CONVENTIONS.md`](eng/CONVENTIONS.md) — what counts as a house convention
+  and the `_conventions.md` cache format. Ten skills read that cache, so its
+  shape is a contract too.

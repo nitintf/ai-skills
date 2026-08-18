@@ -43,10 +43,22 @@ Read the target closely before writing a single assertion. You are documenting
 
 ## 3. Match the house test style
 
-The new tests must look like the repo wrote them. Find existing test files and
-cite `file:line`: framework, runner, folder/naming convention, setup/fixtures,
-mocking approach, assertion style. New tests that diverge from house style are a
-finding against yourself — match it.
+The new tests must look like the repo wrote them.
+
+**Read the Tests section of `.plan/_conventions.md`** if it exists (protocol in
+`${CLAUDE_PLUGIN_ROOT}/SPEC.md` §6): framework, the exact command to run one
+file, where tests live, naming, structure, the **fixtures and factories that
+already exist**, and how boundaries get faked. Use the existing builders rather
+than hand-rolling setup — that's the difference between tests that read like the
+team's and tests that read like a generator's.
+
+Where the cache is silent, find existing test files and cite `file:line` for the
+same list. New tests that diverge from house style are a finding against
+yourself — match it.
+
+Note also what the repo **doesn't** test. If this team never unit-tests
+controllers, adding a suite of them is a bigger conversation than a backfill;
+raise it rather than unilaterally changing the team's testing philosophy.
 
 ## 4. Write the tests
 

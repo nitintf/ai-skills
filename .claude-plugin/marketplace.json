@@ -5,29 +5,29 @@
     "email": "nitinpanwar0802@gmail.com"
   },
   "metadata": {
-    "description": "Nitin's personal Claude Code plugins — reusable skill packs for engineering workflows.",
-    "version": "0.1.0"
+    "description": "Nitin's personal Claude Code plugins \u2014 reusable skill packs for engineering workflows.",
+    "version": "0.3.0"
   },
   "plugins": [
     {
       "name": "eng",
       "source": "./eng",
-      "description": "Plan-to-ship engineering pipeline: scope a task into Jira tickets, grill the requirements, review the plan against house conventions, define tests, then implement and verify — all driven off a shared doc in the project's .plan folder."
+      "description": "Plan-to-ship engineering pipeline. Six composable skills (scope, grill, eng-review, tdd, execute, ship) plus an orchestrator (eng-flow), each a single pass over a shared markdown doc in the project's .plan folder, with full and express tracks. Standalone skills: conventions (house-style cache every other skill reads), understand, debug, spike, adr, refactor, backfill-tests, pr-review, review."
     },
     {
       "name": "product",
       "source": "./product",
-      "description": "Product-thinking skills: write staff-level PRDs and slice them into testable user stories. Output can feed the eng pipeline."
+      "description": "Product-thinking skills. Write staff-level PRDs, slice them into testable user stories, or run /product-flow to take an idea through both and hand off to eng's /scope. Output lands in .plan/<feature>/ where /scope reads it directly."
     },
     {
       "name": "productivity",
       "source": "./productivity",
-      "description": "Workflow helpers: catchup on changes, caveman terse mode, session handoff, and standalone plan grilling."
+      "description": "Daily working rhythm plus workflow helpers. /daily plans the day into a task list, /shutdown closes it with real evidence from commits and PRs, /standup prints a speakable update, /weekly reviews the week and builds your self-review evidence \u2014 all writing to one Obsidian daily note per day. Also: catchup, caveman, handoff, stress-test."
     },
     {
       "name": "brain",
       "source": "./brain",
-      "description": "Second-brain capture for an Obsidian vault: dump what you just learned and /note places it in the right folder, writes it in your own voice, links it, and updates the index hub."
+      "description": "Second-brain capture for an Obsidian vault: dump what you just learned by voice or text and /note places it in the right Learn/ folder, writes it up in your own note-taking voice (not AI voice), wires up bidirectional wikilinks, and updates the index hub. Vault located via $OBSIDIAN_VAULT or by finding .obsidian/."
     }
   ]
 }

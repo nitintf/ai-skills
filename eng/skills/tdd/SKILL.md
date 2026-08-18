@@ -19,7 +19,20 @@ that `execute` writes failing tests first, then makes them pass.
 **First, read the doc schema** at `${CLAUDE_PLUGIN_ROOT}/SPEC.md` and the target
 ticket doc — especially `## Acceptance Criteria` and `## Conventions & Patterns`.
 
+**Then read `.plan/_conventions.md`** if it exists (protocol in `SPEC.md` §6),
+specifically its **Tests** section: the framework, the run command, where tests
+live, the naming and structure, the fixtures and factories that already exist,
+and how boundaries get faked. That section is the whole reason the cache exists
+for you — generated tests that don't match a team's test style are the most
+visible way AI-written code announces itself. If there's no cache, read two or
+three neighbouring test files and derive it yourself.
+
 You **specify** tests here; you do not write or run them. `execute` does that.
+
+**If the doc is `track: express`**, it skipped grill and eng-review — so you are
+the first real pressure on the acceptance criteria. Read them with more suspicion
+than usual: if they're vague or untestable, that's a signal the ticket wasn't as
+simple as it looked. Say so and suggest escalating to `/grill`.
 
 ## Steps
 

@@ -47,9 +47,17 @@ You cannot refactor safely what you cannot verify. Before changing a line:
 ## 3. Learn the house style
 
 The refactored code must look like the codebase, not like a stranger dropped in.
-Before restructuring, find how this repo already does the thing you're moving
-toward and cite it: naming, file layout, error handling, the existing patterns
-for the abstraction you're introducing. Match them.
+
+**Read `.plan/_conventions.md` if it exists** (protocol in
+`${CLAUDE_PLUGIN_ROOT}/SPEC.md` §6). Two parts matter most here: the **existing
+primitives** table — if you're extracting an abstraction the repo already has,
+use theirs instead of introducing a second one — and the **inconsistencies**
+section, which tells you which of two competing patterns is winning, so you
+refactor *toward* it rather than away.
+
+Where the cache is silent, find how this repo already does the thing you're
+moving toward and cite it: naming, file layout, error handling, the existing
+patterns for the abstraction you're introducing. Match them.
 
 ## 4. Plan atomic steps
 

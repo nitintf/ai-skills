@@ -1,7 +1,7 @@
 {
   "name": "productivity",
-  "description": "General workflow helpers: catch up on what changed, compress communication (caveman), hand off a session to a fresh agent, and get grilled on any plan or design.",
-  "version": "0.1.0",
+  "description": "Daily working rhythm plus workflow helpers. /daily plans the day into a task list, /shutdown closes it with real evidence from commits and PRs, /standup prints a speakable update, /weekly reviews the week and builds your self-review evidence \u2014 all writing to one Obsidian daily note per day. Also: catchup, caveman, handoff, stress-test.",
+  "version": "0.4.0",
   "author": {
     "name": "Nitin Panwar",
     "email": "nitinpanwar0802@gmail.com"

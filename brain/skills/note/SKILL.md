@@ -19,8 +19,25 @@ it himself: right folder, right voice, linked up, index updated. The bar is
 high. A note in the wrong folder, or one that sounds like AI, is a failure even
 if the facts are correct.
 
-**Vault root:** `/Users/nitinpanwar/code/nitintf/obsidian`
-(If it ever moves, that's the one line to change here.)
+## Finding the vault
+
+**Resolve the vault root before doing anything else.** In order:
+
+1. `$OBSIDIAN_VAULT` if it's set — this is the supported way to configure it.
+2. Otherwise locate it: an Obsidian vault is any directory containing a
+   `.obsidian/` folder.
+   ```
+   find ~ -maxdepth 6 -type d -name '.obsidian' -not -path '*/node_modules/*' 2>/dev/null
+   ```
+   The vault root is the **parent** of `.obsidian/`. One hit → use it. Several →
+   ask which.
+3. Nothing found → ask the user for the path, and suggest they
+   `export OBSIDIAN_VAULT=<path>` so this step is instant next time.
+
+**Never write to a guessed path.** If you can't resolve the vault, stop and ask —
+silently creating notes at a path that doesn't exist is the worst outcome here.
+
+Everywhere below, `$VAULT` means the resolved root.
 
 **Before writing anything, read the voice guide:** `${CLAUDE_PLUGIN_ROOT}/VOICE.md`.
 It is not optional. It is the difference between this skill working and not.
@@ -66,7 +83,7 @@ Folders change, so never work from memory. **List the current tree** under
 `Learn/` (and the vault root) before deciding.
 
 ```
-find /Users/nitinpanwar/code/nitintf/obsidian/Learn -type d -not -path '*/.*'
+find $VAULT/Learn -type d -not -path '*/.*'
 ```
 
 Then reason about where this topic belongs, following the vault's real shape:
@@ -94,8 +111,8 @@ learning loose in the vault root or in `Inbox/` unless the user asks for Inbox.
 Search the vault for an existing note on this topic before creating anything:
 
 ```
-find /Users/nitinpanwar/code/nitintf/obsidian -name '*.md' -iname '*<topic>*'
-grep -ril '<topic>' /Users/nitinpanwar/code/nitintf/obsidian/Learn
+find $VAULT -name '*.md' -iname '*<topic>*'
+grep -ril '<topic>' $VAULT/Learn
 ```
 
 - **No existing note** -> create a new one (Step 5).
@@ -227,7 +244,7 @@ existing notes that *should* now point to it, and wire them up. Two cases:
 surface forms (singular/plural, with/without "IDs", common short name):
 
 ```
-grep -rin 'snowflake' /Users/nitinpanwar/code/nitintf/obsidian/Learn
+grep -rin 'snowflake' $VAULT/Learn
 ```
 
 Be precise, not greedy: only link a mention where the note is genuinely *about*

@@ -1,0 +1,161 @@
+---
+name: shutdown
+description: >-
+  End-of-day counterpart to /daily. Walks this morning's task list and ticks off
+  what actually got done, using real evidence — commits and PRs from GitHub,
+  ticket movement, meetings you attended — then records what you didn't get to
+  (so tomorrow's /daily carries it), what unplanned work ate the day, and the one
+  thing to start with tomorrow. Edits the same Obsidian daily note /daily wrote
+  this morning. Use at the end of the working day. Triggers: "shutdown", "end of
+  day", "wrap up", "close out the day", "what did I do today", "eod".
+---
+
+# shutdown — close the loop on the day you actually had
+
+`/daily` opened the day with a plan. You close it with the truth. The gap between
+those two is the most useful thing this pair produces — not as a scolding, but
+because **the reason you didn't finish is usually more interesting than the fact
+that you didn't**. An incident ate three hours. Two "quick" reviews weren't. A
+task was never really a one-day task.
+
+You are also the memory. Anything left undone here is what tomorrow's `/daily`
+picks up, so an honest shutdown is what keeps the loop from leaking.
+
+**Read `${CLAUDE_PLUGIN_ROOT}/DAILY-NOTE.md` first** — the daily note schema,
+and specifically §2, which says exactly what you may and may not edit.
+
+## Step 1 — Load this morning's plan
+
+Read `$VAULT/Daily/<today>.md`.
+
+- **No note for today?** `/daily` never ran. Don't fail — reconstruct the day
+  from evidence (Step 2) and write a Shutdown section anyway, noting there was
+  no plan to compare against. A day without a morning brief still deserves a
+  record.
+- **Note exists** → take `## Plan for today` as the list you're grading, and read
+  `## Notes` for context on what he actually did (read only — never edit it).
+
+## Step 2 — Gather evidence of what actually happened
+
+Don't ask him to recite his day. Go find it.
+
+### Code — the strongest evidence
+Prefer the **GitHub MCP** if it's connected; otherwise `gh` CLI and local `git`
+work fine and are usually faster. Cover both remote and local, because work that
+isn't pushed still happened:
+
+- **Commits you authored today**, across the repos you actually touched. Locally:
+  `git log --author=<you> --since=midnight --oneline` in each recently-modified
+  repo under your code directory. Remotely: `gh search commits --author=@me`.
+- **PRs** — opened, merged, or closed today (`gh pr list --author @me`).
+- **Reviews you gave** — easy to forget, real work, and often the thing that
+  unblocked someone else.
+- **Uncommitted work in progress** — `git status` on repos with changes. This is
+  frequently where "what I didn't finish" actually lives.
+
+### Tickets
+Issues you moved, closed, or commented on today. **Your own actions only** here —
+the inverse of `/daily`, which filters those out.
+
+### Meetings
+From the calendar, and from Wispr Flow if connected: what you actually attended,
+and **new commitments you made today**. Those are tomorrow's obligations — catch
+them tonight while there's a transcript, not next week.
+
+## Step 3 — Grade the plan honestly
+
+For each item in `## Plan for today`, decide from the evidence:
+
+- **Done** → tick the checkbox `[ ]` → `[x]`. Tick it only when there's real
+  evidence, or he confirms it. Don't tick optimistically.
+- **Not done** → leave it unchecked, and it goes under `### Didn't get to` with
+  its day count incremented.
+- **Partly done** → this is the common case and deserves care. Leave it
+  unchecked, but record the actual state: "Migration plan — drafted, not sent."
+  Tomorrow's carry-over is far more useful when it says where you stopped.
+
+**Never rewrite a task's text**, only its checkbox (`DAILY-NOTE.md` §2). If the
+task was wrongly worded or turned out to be three tasks, say so in
+`### Also happened` — the plan is a record, not a draft.
+
+Ask him about anything the evidence can't settle. One short batch, not an
+interrogation: "Did the Raj migration plan go out? I see no email."
+
+## Step 4 — Capture what wasn't on the plan
+
+`### Also happened` is the section that makes the day explicable. Unplanned work
+is the usual reason a reasonable plan didn't land:
+
+- Incidents, production fires, urgent pulls.
+- Reviews, pairing, and help you gave someone else.
+- Meetings that appeared during the day.
+- Rabbit holes — the "quick fix" that took two hours.
+
+Rough time cost where you can tell. **Don't editorialize.** "Prod incident, ~2h"
+is the finding. "Unfortunately the day was derailed" is noise.
+
+## Step 5 — Name tomorrow's first thing
+
+One item, not a list. The single thing to start with before the day fills up.
+
+Pick it from carry-over, a commitment made today, or whatever's genuinely most
+urgent — and prefer the thing that's been carried longest, since that's the one
+most likely to keep sliding. Tomorrow's `/daily` will put it at the top of the
+plan.
+
+## Step 6 — Write it back to the same file
+
+Edit `$VAULT/Daily/<today>.md` in place — **the file `/daily` wrote this
+morning**. Never create a second file for today.
+
+Per `DAILY-NOTE.md` §2, you may:
+- toggle checkboxes in `## Plan for today` (text unchanged),
+- write the whole `## Shutdown` section,
+- set frontmatter `shutdown:` to the current time.
+
+You may **not** touch `## Today`, `## Needs you`, `## From yesterday's meetings`,
+`## Carried over`, or — above all — `## Notes`.
+
+```markdown
+## Shutdown
+
+### Done
+- Reviewed PR 412 — approved, unblocked Ankit
+- ACME-231 retry backoff — 3 commits, pushed to `feat/retry-backoff`
+
+### Didn't get to
+- Send Raj the migration plan — drafted, not sent  *(2nd day)*
+
+### Also happened
+- Prod incident in `spinquest-backend`, ~2h — hotfix merged (PR 118)
+- Unplanned design sync, 45m
+
+### Tomorrow's first thing
+- Send Raj the migration plan, before standup
+```
+
+## Step 7 — Tell him, briefly
+
+Three or four lines, not a report. What landed, what's carrying, and the one
+thing for tomorrow. He's finishing his day — respect that.
+
+If something's worth flagging, flag it once and plainly:
+- A task carried **3+ days** — "this has moved four days; it's not going to
+  happen in this form."
+- A day where unplanned work exceeded planned work — worth him noticing, said
+  once, without commentary.
+- Uncommitted work sitting in a repo overnight.
+
+## Guardrails
+
+- **Evidence before assertion.** Tick a box because there's a commit, a PR, a
+  sent email, or he said so — never because it seemed likely.
+- **Report, don't judge.** No "you should have", no productivity coaching, no
+  encouragement. A day where one thing shipped and an incident ate the rest was
+  a fine day. State it flat.
+- **Never edit `## Notes`.** It's his.
+- **Never rewrite task text**, only checkboxes.
+- **Read-only on every external account** — no marking read, replying, closing
+  tickets, or pushing anything.
+- **Don't pad `### Done`.** Three real things beat nine with "attended standup"
+  in the list.

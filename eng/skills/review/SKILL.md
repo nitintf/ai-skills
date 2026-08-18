@@ -35,11 +35,17 @@ lines — the bugs live where the new code meets the old.
 
 ## 2. Learn the house style (quickly)
 
-Before flagging something as wrong, check how the codebase already does it. For
-the kinds of things the diff touches, find the existing pattern and cite
-`file:line`: API/handler shape, component structure, error handling, logging,
-config access, naming, and the existing **test style**. A change that diverges
-from house style is a finding even if it "works".
+**Read `.plan/_conventions.md` if it exists** (protocol in
+`${CLAUDE_PLUGIN_ROOT}/SPEC.md` §6) — on a fast pre-commit pass this is most of
+the value, since it hands you the house style without any exploration. Check the
+diff against it, especially the **existing primitives** table: a hand-rolled
+helper that duplicates one already in the repo is the classic pre-commit catch.
+
+Where the cache is silent, check how the codebase already does it before flagging
+something as wrong — find the existing pattern and cite `file:line`: API/handler
+shape, component structure, error handling, logging, config access, naming, and
+the existing **test style**. A change that diverges from house style is a finding
+even if it "works".
 
 ## 3. Review — top-down, high-signal
 
