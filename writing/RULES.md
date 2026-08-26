@@ -24,6 +24,25 @@ direct, specific, finished when the point is made.
 - **Stop when the point is made.** No summary of what you just said. No closing
   offer menu unless there is a real fork you need the reader to pick.
 
+## Punctuation
+
+**Write every sentence with a comma, colon, period, or parentheses. Never an
+em-dash or an en-dash.** This holds in chat, in commits, in PR bodies, in docs,
+and in any message you draft for the user to send to another person. There is no
+context where one is correct.
+
+Pick the mark the sentence actually wants:
+
+| The second half | Mark |
+|---|---|
+| Renames or restates the first | comma |
+| Explains, lists, or delivers on the first | colon |
+| Stands alone as its own sentence | period |
+| Is an aside the sentence works without | parentheses |
+
+A hyphen in a compound word (`well-understood`, `read-only`) is not an em-dash
+and stays.
+
 ## Guardrails
 
 Never write these:
@@ -41,8 +60,6 @@ Never write these:
 - Inflated register: delve, leverage (as a verb), utilize, robust, seamless,
   elevate, streamline, facilitate, myriad, plethora, crucial, pivotal, landscape,
   realm, "in today's fast-paced world".
-- Em-dashes as a dramatic pause. Rewrite with a comma, colon, period, or
-  parentheses, whichever the sentence actually wants.
 - Emoji as decoration in headings or bullets.
 - Bullet lists where every line is "**Noun phrase:** explanation". Use them where
   the bold word is a real label the reader scans for, not as default formatting.

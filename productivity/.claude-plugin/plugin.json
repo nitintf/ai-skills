@@ -1,7 +1,7 @@
 {
   "name": "productivity",
   "description": "Daily working rhythm plus workflow helpers. /daily plans the day into a task list, /shutdown closes it with real evidence from commits and PRs, /standup prints a speakable update, /weekly reviews the week, all writing to one Obsidian daily note per day. Also: /ask (the router over every skill in this marketplace), catchup, caveman, handoff, stress-test.",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "author": {
     "name": "Nitin Panwar",
     "email": "nitinpanwar0802@gmail.com"

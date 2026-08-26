@@ -48,9 +48,12 @@ require a `.plan` doc.
 |-------------------|----------------------------------------------------------------|
 | `/conventions`    | Scan the repo once and cache its house style to `.plan/_conventions.md`. **Every other skill reads it**, so run this first in a new repo: it makes the rest cheaper and consistent. |
 | `/understand`     | Two modes: **question** ("how does token refresh work?") searches the codebase and returns a sourced answer; **map** traces a repo or subsystem into an architecture map. Either can be saved to `.plan/_research/`. |
+| `/research`       | Answer a question about the world outside this repo from primary sources: specs, RFCs, official docs, changelogs, library source. Every claim carries a link. Saves to `.plan/_research/`. |
 | `/debug`          | Root-cause a bug properly: reproduce first, narrow the surface, kill competing hypotheses one at a time, confirm the cause, fix it, lock it with a regression test. |
 | `/spike`          | Timeboxed "which approach should we take": evaluates 2-4 options against **this** codebase's real constraints, prototypes only the riskiest assumption, ends in a recommendation with a confidence level. |
 | `/adr`            | Architecture Decision Record: context, options genuinely considered, the decision, and the consequences you're accepting. Immutable, reversals supersede, never edit. |
+| `/migrate`        | Data and schema migrations without data loss: characterize the real data, pick a strategy, **write the rollback before the migration**, verify with queries rather than hope. |
+| `/resolve-conflicts` | Work a merge, rebase, or cherry-pick conflict hunk by hunk, resolving by **traced intent** rather than by picking a side. Hunts the semantic conflicts that leave no markers. Finishes the operation, never `--abort`. |
 | `/refactor`       | Plan + safely execute a **behavior-preserving** refactor: safety net first, atomic steps kept green, verify nothing changed. |
 | `/backfill-tests` | Characterization tests for existing untested code: lock in current behavior and **surface suspected bugs** instead of encoding them. |
 | `/pr-review`      | Staff/principal review of the current branch vs main, with `gh` context: correctness → architecture → **house-style consistency**, blocking vs nits. Your **pre-merge** review. |
@@ -181,6 +184,7 @@ whether or not you remember to ask for it.
 | Skill      | What it does                                                          |
 |------------|-----------------------------------------------------------------------|
 | `/unslop`  | Rewrite text so it reads like a person wrote it, or audit a draft and name the tells without touching it. Works on chat, commits, PR bodies, docs, and release notes. |
+| `/skill`   | Write or revise a skill for **this** repo to the house standard, and wire it into README, `/ask`, and the version bump so `scripts/check.py` passes. Pushes back first on whether it should exist at all. |
 
 The rules lead with **positive targets** (lead with the answer, one idea per
 sentence, name the specific thing, use the plain word) and keep the banned-phrase

@@ -40,6 +40,9 @@ execute, ship for small well-understood work with no open questions.
 | `/conventions` | First run in a new repo. Caches house style to `.plan/_conventions.md`, which ten other skills read. |
 | `/understand` | "How does X work?" or "map this repo for me." Answers with file:line evidence. |
 | `/debug` | Something is broken and you want the root cause, not a guess. |
+| `/research` | The question is about the world outside this repo: a spec, a third-party API, a library, a release. |
+| `/migrate` | The change touches data or schema. The riskiest work there is. |
+| `/resolve-conflicts` | A merge, rebase, or cherry-pick left conflicts. |
 | `/spike` | "Which of these approaches should we take?" Ends in a recommendation. |
 | `/adr` | A costly-to-reverse decision was made and should survive in the record. |
 | `/refactor` | Reshape code without changing what it does. |
@@ -47,7 +50,8 @@ execute, ship for small well-understood work with no open questions.
 | `/review` | Quick gut-check on the uncommitted working diff, right before you commit. |
 | `/pr-review` | Full staff-level review of the branch against main, with GitHub context, before merge. |
 
-`/understand` answers "how does this work". `/spike` answers "which should we
+`/understand` answers "how does this work" about **this** codebase; `/research`
+answers questions about everything outside it. `/spike` answers "which should we
 use". `/review` is pre-commit and local; `/pr-review` is pre-merge and pulls
 `gh` context.
 
@@ -81,6 +85,7 @@ carries forward whatever did not land.
 | `/caveman` | You want compressed replies for a while. |
 | `/unslop` | Some text reads like AI wrote it. Rewrites or audits it. |
 | `/note` | You just learned something and it belongs in the Obsidian vault. |
+| `/skill` | You want to add or fix a skill in this repo. |
 
 ## Reaching for nothing
 

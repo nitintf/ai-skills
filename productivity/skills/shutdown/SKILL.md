@@ -28,8 +28,30 @@ Read `$VAULT/Daily/<today>.md`.
   from evidence (Step 2) and write a Shutdown section anyway, noting there was
   no plan to compare against. A day without a morning brief still deserves a
   record.
-- **Note exists** → take `## Plan for today` as the list you're grading, and read
-  `## Notes` for context on what he actually did (read only, never edit it).
+- **Note exists** → take `## Plan for today` as the list you're grading, then
+  read `## Notes` in full before grading a single item.
+
+### `## Notes` is evidence, and it is first-hand
+
+Read the whole section, every run, even when it reads like scratch. Commits and
+tickets tell you what landed; his notes tell you what happened. Only one of those
+sources knows a task died because a meeting ran long.
+
+Use it for:
+
+| What you find there | How it changes the Shutdown |
+|---|---|
+| Work with no commit and no ticket (a call, a doc, a decision, unblocking someone) | Goes in `### Also happened`. This is the single biggest source of invisible work. |
+| The reason a planned task stalled | Goes beside the task in `### Didn't get to`. A reason beats a bare carry-over. |
+| A task done outside the tools (verbally agreed, done in a dashboard) | Grounds for ticking it in `### Done`, even with no commit. |
+| Something he flagged for tomorrow | A strong candidate for `### Tomorrow's first thing`. |
+
+Where his notes and the hard evidence disagree, **report both** rather than
+picking. "Notes say the migration plan went to Raj; no message or commit found"
+is the useful output. Silently trusting either one is not.
+
+Never edit the section. What you learn from it goes into your own Shutdown
+sections.
 
 ## Step 2: Gather evidence of what actually happened
 
@@ -149,9 +171,21 @@ If something's worth flagging, flag it once and plainly:
 - **Report, don't judge.** No "you should have", no productivity coaching, no
   encouragement. A day where one thing shipped and an incident ate the rest was
   a fine day. State it flat.
-- **Never edit `## Notes`.** It's his.
+- **Read `## Notes` before grading anything, and never edit it.** It is the only
+  section he wrote himself, and it routinely explains a task the evidence cannot.
 - **Never rewrite task text**, only checkboxes.
 - **Read-only on every external account**: no marking read, replying, closing
   tickets, or pushing anything.
 - **Don't pad `### Done`.** Three real things beat nine with "attended standup"
   in the list.
+
+## Done when
+
+- Today's `## Notes` was read in full before any item was graded.
+- Work that appears only in his notes, with no commit or ticket behind it, is in
+  `### Also happened`.
+- Every item in `### Didn't get to` that his notes explained carries the reason.
+- Every disagreement between his notes and the hard evidence is reported as both,
+  not silently resolved.
+- `## Notes` is byte-identical to how you found it.
+- Every tick in `### Done` traces to evidence or to his own note.

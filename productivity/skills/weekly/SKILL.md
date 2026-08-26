@@ -30,7 +30,10 @@ Load every `$VAULT/Daily/<date>.md` from Monday to today. From each:
   important finding.
 - `### Also happened`, unplanned work. Add it up; this is usually the answer to
   "why didn't I get to my actual work".
-- `## Notes`, read for context only. **Never edit.**
+- `## Notes`, **read every day's in full**. This is the only text he wrote
+  himself all week, and it holds the work no commit records: the calls, the
+  unblocking, the decisions, and the reasons things slipped. Most of
+  `## Worth remembering` comes from here. **Never edit it.**
 
 Missing days are normal (leave, no shutdown run). Note the gap and carry on;
 don't treat an absent file as a zero-output day.
@@ -127,5 +130,6 @@ carrying. Then offer, without pushing:
 - **`## Worth remembering` is not bragging**: it's the section that makes the
   whole habit pay off six months later. Fill it honestly and specifically, and
   never leave it empty on a week where something real happened.
-- **Read `## Notes`; never edit them.**
+- **Read every day's `## Notes` in full; never edit them.** Skipping them is how
+  a week of real work reads as an empty week.
 - **Don't invent a narrative.** Some weeks are maintenance and meetings. Say so.

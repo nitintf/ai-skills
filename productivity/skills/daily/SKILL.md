@@ -61,7 +61,7 @@ brief anyway using the template defaults, never block the first run on setup.
 Find the **most recent existing** `$VAULT/Daily/*.md`. which is "yesterday" for
 our purposes, whether that's literally yesterday, Friday, or two weeks ago.
 
-Two things come out of it:
+Three things come out of it:
 
 1. **The window.** The brief covers *since that note*, not a fixed 24 hours, so
    nothing is missed over a weekend or a holiday. If the gap is more than a day,
@@ -69,6 +69,28 @@ Two things come out of it:
 2. **The carry-over.** Read its `## Shutdown → ### Didn't get to`. Those tasks go
    into today's `## Carried over` with their day count incremented, and they seed
    today's plan (see Step 6).
+3. **His notes.** Read the previous note's `## Notes` section in full. Read it
+   even when it looks like scratch, even when it is long, even when it looks
+   unrelated to today. It is the only part of that file he wrote himself, and it
+   is the highest-signal input this skill has.
+
+### What to do with `## Notes`
+
+Mine it for four things, and carry each into today's brief:
+
+| What you find there | Where it goes today |
+|---|---|
+| An intention ("need to chase Raj about the migration") | A task in `## Plan for today` |
+| A blocker ("waiting on infra for the staging DB") | Annotate the carried task with the blocker, rather than carrying it silently |
+| A decision he made | Context. Do not re-raise a question he already answered. |
+| A deadline or date he wrote down | Check it against today. If it lands today or tomorrow, surface it in `## Needs you`. |
+
+**His notes outrank your inference.** A note saying a task is blocked beats
+whatever you concluded from the commit log. Where the note and the evidence
+disagree, put both in the brief and say which is which.
+
+Where the note explains why something did not get done, do not carry that task
+forward as though nothing happened. Carry it with the reason attached.
 
 If there's no previous note at all, this is the first run: skip carry-over,
 default the window to 24 hours.
@@ -227,7 +249,7 @@ exactly:
 
 - **If the file already exists** (you're re-running, or `/shutdown` ran early),
   read it fully and update **only the sections you own**.
-- **Never touch `## Notes`**: that's his, and rewriting it is the worst thing
+- **Read `## Notes`, never write it**: read it in Step 3 and act on it; rewriting it is the worst thing
   this skill could do.
 - **Never clear a checkbox** he already ticked by hand.
 - **Never touch `## Shutdown`.**
@@ -281,3 +303,12 @@ Never write the config without confirmation.
   one file: it goes to chat and the local vault, nowhere else.
 - **Don't duplicate `/catchup`.** Code and PR movement is that skill's job; this
   one is about people and commitments.
+
+## Done when
+
+- The previous note's `## Notes` was read in full, and anything actionable in it
+  appears somewhere in today's brief.
+- Every carried task that his notes explained carries that reason with it.
+- Nothing he already decided in `## Notes` is re-raised as an open question.
+- `## Notes` in the file you wrote is empty and untouched.
+- Every task in `## Plan for today` is one he could tick tonight.

@@ -56,8 +56,8 @@ This is the spine of the whole loop: see §3.>
 ---
 
 ## Notes
-<Nitin's own. NEVER touched by any skill: not read for rewriting, not
-reformatted, not reordered. Skills may read it for context only.>
+<Nitin's own. Every skill READS this. No skill EDITS it: never rewritten,
+reformatted, or reordered. Read-and-use, not read-and-ignore.>
 
 ---
 
@@ -92,13 +92,22 @@ the "why didn't I finish" question answerable.>
 | `## From yesterday's meetings` | `/daily` | `/daily` | `/shutdown` |
 | `## Carried over` | `/daily` | `/daily` | `/shutdown` |
 | `## Plan for today` | `/daily` | `/daily` writes items; **`/shutdown` only toggles `[ ]`→`[x]`** |, |
-| `## Notes` | `/daily` (empty) | **nobody** | everyone |
+| `## Notes` | `/daily` (empty) | **nobody** | **everyone, every run** |
 | `## Shutdown` | `/shutdown` | `/shutdown` | `/daily` |
 
 Hard rules:
 
-- **`## Notes` is sacred.** Never rewrite, reformat, reorder, or "clean up" the
-  user's own notes. Read them for context; never edit them.
+- **`## Notes` is read by every skill and edited by none.** Two separate rules,
+  and the second one keeps eating the first. Skills have been treating the
+  section as a no-go zone and skipping it entirely, which throws away the only
+  input in this file that Nitin wrote himself.
+  - **Read it, every run.** `/daily` reads yesterday's before planning today.
+    `/shutdown` reads today's before grading. `/weekly` reads all five.
+  - **Use what is in it.** It outranks inference: a note saying a task is blocked
+    beats your guess from the commit log. Where it contradicts the evidence, say
+    both.
+  - **Never edit it.** No rewriting, reformatting, reordering, or tidying. Add
+    what you learned from it to your own sections instead.
 - **`/shutdown` never rewrites a task's text**, only its checkbox. If the task as
   written was wrong, say so in `### Also happened`, don't silently edit history.
 - **Re-running a skill updates its own sections in place.** `/daily` run twice in
