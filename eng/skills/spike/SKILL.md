@@ -1,18 +1,13 @@
 ---
 name: spike
 description: >-
-  Timeboxed technical investigation that ends in a recommendation. Frames the
-  real question, defines what would settle it, evaluates 2-4 candidate approaches
-  against THIS codebase's actual constraints (not a generic pros/cons table),
-  optionally prototypes the riskiest assumption in a throwaway branch, then
-  recommends one with an honest confidence level. Writes a decision-ready doc.
-  Differs from `/understand` (answers "how does this work") — a spike answers
-  "which approach should we take". Triggers: "spike this", "evaluate options",
-  "which approach should we use", "compare these libraries", "proof of concept",
-  "investigate feasibility", "build vs buy".
+  Timeboxed investigation that ends in a recommendation: evaluate 2-4 approaches
+  against this codebase's real constraints and pick one, with a confidence
+  level.
+disable-model-invocation: true
 ---
 
-# spike — buy information, then decide
+# spike: buy information, then decide
 
 A spike is a **purchase of information**. You spend a bounded amount of effort to
 reduce uncertainty enough to commit, and then you stop. Two failure modes bracket
@@ -30,15 +25,15 @@ path?" is. Before anything else, pin down:
 
 - **The decision this unblocks.** If nothing changes based on the answer, don't
   spike it. Say so.
-- **The real constraints** — scale, latency, budget, deadline, team skills,
+- **The real constraints**: scale, latency, budget, deadline, team skills,
   existing infrastructure, compliance, what you can't break. These do the actual
   deciding; a generic comparison ignores them and is therefore useless.
-- **The success criteria** — what evidence would settle this? Name it *now*,
+- **The success criteria**: what evidence would settle this? Name it *now*,
   before you're invested in an answer. This is what keeps a spike from becoming
   a rationalization.
 - **The timebox.** Agree it explicitly: "a couple of hours of exploration" or
   "read-only, no prototype". Then hold it, and report honestly if you hit it
-  without an answer — "I need more time and here's specifically why" is a
+  without an answer: "I need more time and here's specifically why" is a
   legitimate and useful outcome.
 
 If the question is still fuzzy after this, ask the user before burning effort.
@@ -49,16 +44,16 @@ The difference between a useful spike and a blog post. Before evaluating
 anything, know what you're actually integrating with:
 
 - Read `.plan/_conventions.md` if it exists (see `${CLAUDE_PLUGIN_ROOT}/SPEC.md`
-  §6) — the stack, the patterns, the primitives already present.
+  §6): the stack, the patterns, the primitives already present.
 - Find the code the decision touches, with `file:line`. What would each option
   actually require changing?
 - **Check what's already there.** Half of all spikes end with "we already have
-  something that does this" — a dependency already in `package.json`, a helper
+  something that does this": a dependency already in `package.json`, a helper
   someone wrote, a service already deployed. Look before comparing.
 - Look for prior art: has this been tried here before? `git log`, existing ADRs
   in `.plan/_decisions/`, a dead branch, a commented-out experiment.
 
-## 3. Identify the candidates — 2 to 4, including the boring one
+## 3. Identify the candidates: 2 to 4, including the boring one
 
 More than four and you'll evaluate all of them shallowly. Always include:
 
@@ -68,20 +63,20 @@ More than four and you'll evaluate all of them shallowly. Always include:
   right answer, and it calibrates the cost of the fancier options.
 - The candidates the user proposed, plus any obvious one they missed.
 
-Say explicitly what you ruled out before evaluating, and why — that's part of the
+Say explicitly what you ruled out before evaluating, and why: that's part of the
 reasoning, and it stops "did you consider Y?" a week later.
 
 ## 4. Evaluate against the criteria, not in the abstract
 
-For each candidate, answer the questions **you defined in §1** — not a generic
+For each candidate, answer the questions **you defined in §1**, not a generic
 feature matrix. What matters:
 
-- **Fit with this codebase** — how much of the existing architecture survives?
+- **Fit with this codebase**: how much of the existing architecture survives?
   What has to change, with `file:line`?
-- **The risky assumption** — every option rests on something unverified
+- **The risky assumption**: every option rests on something unverified
   ("it can handle our volume", "it supports our auth model", "it works with our
   Node version"). Name it. This is what a prototype is for.
-- **Cost to adopt and to live with** — migration effort, ongoing maintenance,
+- **Cost to adopt and to live with**: migration effort, ongoing maintenance,
   operational burden, licensing, the on-call cost.
 - **Reversibility.** How expensive is it to back out in six months? This
   frequently *should* dominate the decision and rarely does. A cheap-to-reverse
@@ -95,7 +90,7 @@ actually use supports what you need. "It's popular" is not a finding.
 ## 5. Prototype only the riskiest assumption
 
 If the decision genuinely hinges on something you can't determine by reading,
-build the **smallest possible thing that tests exactly that** — not a demo, not a
+build the **smallest possible thing that tests exactly that**: not a demo, not a
 feature, not an integration. The one assumption.
 
 - Throwaway branch, clearly labelled. Never in the working tree the user is
@@ -105,7 +100,7 @@ feature, not an integration. The one assumption.
   wrong; it must never quietly become production code. If it turns out to be
   useful, that's a fresh, properly-scoped `/scope` ticket.
 
-Record what the prototype actually proved or disproved — including "inconclusive".
+Record what the prototype actually proved or disproved, including "inconclusive".
 
 ## 6. Recommend
 
@@ -115,7 +110,7 @@ Write to `.plan/_research/spike-<slug>.md` (or where the user prefers):
 # Spike: <the question>
 
 **Recommendation:** <the answer, in one sentence, up top.>
-**Confidence:** high | medium | low — <why, in a clause>
+**Confidence:** high | medium | low: <why, in a clause>
 **Timeboxed to:** <what you spent> · **Date:** <YYYY-MM-DD>
 
 ## The question and why it matters
@@ -125,11 +120,11 @@ Write to `.plan/_research/spike-<slug>.md` (or where the user prefers):
 <The success criteria from §1, so a reader can check your work.>
 
 ## Options
-### <Option> — recommended ✅
+### <Option>: recommended ✅
 <What it is. Fit with our codebase, with `file:line`. Cost to adopt and to
 live with. Reversibility. What it costs us.>
 ### <Option>
-<Same treatment, fairly. Then: why not — tied to a specific constraint.>
+<Same treatment, fairly. Then: why not, tied to a specific constraint.>
 
 ## Evidence
 <What you actually read, ran, or measured. Prototype results, including the
@@ -156,7 +151,7 @@ Then hand off:
   an abdication. Make the call; the user can overrule you with the reasoning in
   front of them.
 - **State confidence honestly.** Low confidence clearly labelled is far more
-  useful than false certainty — it tells the user how hard to hold the decision.
+  useful than false certainty: it tells the user how hard to hold the decision.
 - **Hold the timebox.** If you blow through it, stop and report, don't keep
   going silently.
 - **Prototype code is throwaway.** Never leave it in the working tree, never let

@@ -1,7 +1,7 @@
 {
   "name": "brain",
   "description": "Second-brain capture for an Obsidian vault: dump what you just learned by voice or text and /note places it in the right Learn/ folder, writes it up in your own note-taking voice (not AI voice), wires up bidirectional wikilinks, and updates the index hub. Vault located via $OBSIDIAN_VAULT or by finding .obsidian/.",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": {
     "name": "Nitin Panwar",
     "email": "nitinpanwar0802@gmail.com"

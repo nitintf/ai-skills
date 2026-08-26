@@ -1,7 +1,7 @@
 {
   "name": "product",
   "description": "Product-thinking skills. Write staff-level PRDs, slice them into testable user stories, or run /product-flow to take an idea through both and hand off to eng's /scope. Output lands in .plan/<feature>/ where /scope reads it directly.",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": {
     "name": "Nitin Panwar",
     "email": "nitinpanwar0802@gmail.com"

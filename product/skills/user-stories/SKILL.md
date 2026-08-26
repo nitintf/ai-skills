@@ -1,16 +1,10 @@
 ---
 name: user-stories
-description: >-
-  Break a PRD, epic, or feature idea into well-formed user stories — "As a
-  <persona>, I want <goal>, so that <benefit>" — each with clear, testable
-  acceptance criteria (Gherkin given/when/then). Uses real personas when a
-  personas skill is available, sizes stories to be independently shippable, and
-  orders them. Output feeds /scope. Use when the user has a PRD/epic to slice or
-  asks for user stories. Triggers: "user stories", "break into stories", "write
-  stories for this", "slice this epic", "story map".
+description: Slice a PRD or epic into INVEST user stories with Gherkin acceptance criteria, sized to ship independently and ordered by dependency.
+disable-model-invocation: true
 ---
 
-# user-stories — slice product intent into shippable, testable stories
+# user-stories: slice product intent into shippable, testable stories
 
 Turn a PRD/epic/feature into a set of user stories that a team could pick up.
 Good stories are **INVEST**: Independent, Negotiable, Valuable, Estimable, Small,
@@ -45,7 +39,7 @@ prefers). For each:
 **So that** <benefit/why>
 
 **Priority:** P0 | P1 | P2
-**Depends on:** <other story IDs, or —>
+**Depends on:** <other story IDs, or none>
 
 ### Acceptance Criteria
 - [ ] **Given** <context> **when** <action> **then** <expected outcome>
@@ -59,7 +53,7 @@ prefers). For each:
 - Every story is independently demoable (vertical slice), not "build the schema."
 - Acceptance criteria are testable and unambiguous (no "works well").
 - Personas are real and specific.
-- The set covers the PRD's P0 goals — flag any goal with no story.
+- The set covers the PRD's P0 goals, flag any goal with no story.
 - Stories are ordered with dependencies explicit.
 
 ### 5. Hand off

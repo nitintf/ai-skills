@@ -11,18 +11,18 @@ description: >-
   "this test is flaky", "fix this bug", "it's broken".
 ---
 
-# debug — find the actual cause, then fix that
+# debug: find the actual cause, then fix that
 
 The failure mode this skill exists to prevent: reading an error, pattern-matching
 a plausible cause, changing something, and declaring victory when the symptom
-moves. That's not debugging — it's guessing with extra steps, and it leaves the
+moves. That's not debugging: it's guessing with extra steps, and it leaves the
 real bug in place wearing a different mask.
 
 Debugging is **evidence in, hypothesis out, repeat.** You do not change code to
 see what happens; you change code to *test a stated prediction*. If you can't say
 what you expect to observe before you run something, you're not ready to run it.
 
-## 1. Reproduce it — first, always
+## 1. Reproduce it: first, always
 
 Everything downstream is worthless without this. You cannot confirm a fix you
 cannot trigger.
@@ -30,7 +30,7 @@ cannot trigger.
 - Get the **exact** invocation: the command, the test name, the request, the
   input. Read the real error message and the **full stack trace**, not a summary.
 - Run it yourself and watch it fail. If you can't reproduce it, that's the
-  problem to solve first — ask for the missing piece (env, data, version, the
+  problem to solve first: ask for the missing piece (env, data, version, the
   exact steps) rather than debugging from imagination.
 - Establish **when it's not broken**: does it pass on `main`? with different
   input? in isolation vs the full suite? The boundary between working and broken
@@ -45,11 +45,11 @@ Write down the **exact reproduction command**. You'll run it after every step.
 
 Before forming any theory, harvest what's already in front of you:
 
-- The stack trace **top to bottom** — the deepest frame in *your* code is usually
+- The stack trace **top to bottom**: the deepest frame in *your* code is usually
   more informative than the library frame that threw.
 - The actual values. Print or inspect the real input at the failure point. Half
   of all bugs are "the data wasn't the shape you assumed".
-- Logs around the failure, not just at it — the state one step earlier.
+- Logs around the failure, not just at it, the state one step earlier.
 - `git log` / `git blame` on the failing path. **Did this ever work?** If yes,
   `git bisect` (or a manual bisect over a handful of commits) converts a hard
   reasoning problem into a mechanical search. Reach for it early on regressions;
@@ -67,7 +67,7 @@ Cut the search space in half repeatedly instead of staring at all of it:
 - Isolate the layer: pure logic, or the boundary (DB, network, filesystem,
   clock, concurrency, framework)? Bugs cluster at boundaries.
 
-## 4. Form competing hypotheses — plural, explicit
+## 4. Form competing hypotheses: plural, explicit
 
 State **two or three** candidate causes, not one. A single hypothesis is a
 commitment, and you'll unconsciously defend it; competing hypotheses make you
@@ -76,7 +76,7 @@ gather discriminating evidence instead.
 For each: *if this is the cause, what would I expect to see that I haven't
 checked yet?* Then go check the thing that **distinguishes** them.
 
-Rank by prior probability, and be honest about it — it is far more often your
+Rank by prior probability, and be honest about it: it is far more often your
 own recent change, an assumption about input shape, or a misread of an API than
 it is a bug in the framework. "The library is broken" is a last resort, not a
 first instinct.
@@ -96,7 +96,7 @@ Change **one variable per experiment** and predict the result before you run it.
 - Prediction wrong → *good*. That's information. Discard the hypothesis and say
   what it ruled out.
 
-Never make two changes at once — you lose the ability to attribute the outcome.
+Never make two changes at once: you lose the ability to attribute the outcome.
 Undo failed experiments before the next one; a pile of speculative edits becomes
 its own bug.
 
@@ -104,7 +104,7 @@ its own bug.
 
 You've found it when you can do all three:
 
-1. **Explain the full causal chain** — from trigger to symptom, every hop.
+1. **Explain the full causal chain**: from trigger to symptom, every hop.
 2. **Predict** a new case that should also fail, and watch it fail.
 3. **Predict** a case that should pass, and watch it pass.
 
@@ -114,17 +114,17 @@ than shipping a fix you can't justify.
 **Ask "why" until you hit something worth fixing.** The null dereference is the
 symptom; the missing validation at the boundary is often the cause; the API that
 makes an invalid state representable is sometimes the real one. Stop at the level
-where the fix actually belongs — don't stop at the crash site out of convenience,
+where the fix actually belongs: don't stop at the crash site out of convenience,
 and don't spiral into rewriting the architecture.
 
 ## 7. Fix the cause, and lock it
 
 - **Write a failing test first** that reproduces the bug at the tightest level
-  you can — it's the proof, and it's what stops the bug coming back. Watch it
+  you can: it's the proof, and it's what stops the bug coming back. Watch it
   fail for the right reason. Follow the repo's test style
   (`.plan/_conventions.md`, or the neighbouring test files).
 - Make the **minimal** fix that addresses the cause. Resist the urge to
-  refactor the surrounding code in the same change — note it and offer it
+  refactor the surrounding code in the same change, note it and offer it
   separately (`/refactor`).
 - Run the new test (green), then the **full suite** (no collateral damage), then
   the **original reproduction from §1**.
@@ -133,10 +133,10 @@ and don't spiral into rewriting the architecture.
 
 ## 8. Report
 
-- **Root cause** — the causal chain in a few sentences, with `file:line`.
-- **The fix** — what changed and why that's the right level to fix it.
-- **Proof** — the regression test, and the reproduction now passing.
-- **Related risk** — the same mistake elsewhere in the codebase (go look; bugs
+- **Root cause**: the causal chain in a few sentences, with `file:line`.
+- **The fix**: what changed and why that's the right level to fix it.
+- **Proof**: the regression test, and the reproduction now passing.
+- **Related risk**: the same mistake elsewhere in the codebase (go look; bugs
   of a kind travel in packs), and any bug you found along the way but didn't fix.
 
 ## Guardrails
@@ -146,7 +146,7 @@ and don't spiral into rewriting the architecture.
   than none.
 - **One variable at a time.** Always.
 - **Symptom-suppression is not a fix.** A `try/catch` around the error, a
-  null-check at the crash site, a retry over a race, a `sleep` in a flaky test —
+  null-check at the crash site, a retry over a race, a `sleep` in a flaky test:
   these hide the bug. If a band-aid is genuinely the right call for now, label it
   as one and file what the real fix is.
 - **Don't delete or `.skip` a failing test to make things green.** The test is

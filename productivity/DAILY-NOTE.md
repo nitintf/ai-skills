@@ -1,10 +1,10 @@
-# Daily Note Schema — the contract `/daily`, `/shutdown`, `/standup` and `/weekly` obey
+# Daily Note Schema: the contract `/daily`, `/shutdown`, `/standup` and `/weekly` obey
 
 **One file per day.** `/daily` creates it in the morning, `/shutdown` edits the
 *same* file in the evening, `/standup` reads it, `/weekly` reads a week of them.
 Nothing here ever creates a second file for the same date.
 
-That only works if every skill agrees on the sections below and — critically —
+That only works if every skill agrees on the sections below and, critically,
 **edits only the sections it owns**. This file is the agreement.
 
 ```
@@ -32,15 +32,15 @@ carried: 2            # count of tasks carried in from yesterday
 ## Today
 <calendar. Owned by /daily.>
 09:30  Standup (15m)
-14:00  Design review — Payments   ⚠️ you're presenting, no deck yet
+14:00  Design review, Payments   ⚠️ you're presenting, no deck yet
 
 ## Needs you
 <mail / slack / tickets that need a reply. Owned by /daily.>
-- **Sarah** (email) — Q3 numbers, wants them by EOD
+- **Sarah** (email), Q3 numbers, wants them by EOD
 
 ## From yesterday's meetings
 <commitments, decisions, action items from Wispr Flow. Owned by /daily.>
-- You told Raj you'd send the migration plan — *Design review, 14:20*
+- You told Raj you'd send the migration plan, *Design review, 14:20*
 
 ## Carried over
 <what yesterday's Shutdown marked as not done. Owned by /daily.>
@@ -48,7 +48,7 @@ carried: 2            # count of tasks carried in from yesterday
 
 ## Plan for today
 <THE task list. /daily writes it unchecked; /shutdown ticks the boxes.
-This is the spine of the whole loop — see §3.>
+This is the spine of the whole loop: see §3.>
 - [ ] Send Raj the migration plan
 - [ ] Review PR 412
 - [ ] ACME-231: implement retry backoff
@@ -56,7 +56,7 @@ This is the spine of the whole loop — see §3.>
 ---
 
 ## Notes
-<Nitin's own. NEVER touched by any skill — not read for rewriting, not
+<Nitin's own. NEVER touched by any skill: not read for rewriting, not
 reformatted, not reordered. Skills may read it for context only.>
 
 ---
@@ -65,16 +65,16 @@ reformatted, not reordered. Skills may read it for context only.>
 <Owned by /shutdown. Absent until the evening run.>
 
 ### Done
-- Reviewed PR 412 — approved
+- Reviewed PR 412: approved
 - ACME-231 retry backoff, pushed to `feat/retry-backoff`
 
 ### Didn't get to
 - Send Raj the migration plan  *(2nd day)*
 
 ### Also happened
-<unplanned work that ate the day — from git, PRs, meetings. This is what makes
+<unplanned work that ate the day, from git, PRs, meetings. This is what makes
 the "why didn't I finish" question answerable.>
-- Prod incident, ~2h — hotfix in `spinquest-backend`
+- Prod incident, ~2h, hotfix in `spinquest-backend`
 
 ### Tomorrow's first thing
 - Send Raj the migration plan, before standup
@@ -82,16 +82,16 @@ the "why didn't I finish" question answerable.>
 
 ---
 
-## 2. Section ownership — who may write what
+## 2. Section ownership: who may write what
 
 | Section | Created by | May edit | Never touched by |
 |---|---|---|---|
-| frontmatter | `/daily` | `/daily`, `/shutdown` | — |
+| frontmatter | `/daily` | `/daily`, `/shutdown` |, |
 | `## Today` | `/daily` | `/daily` | `/shutdown` |
 | `## Needs you` | `/daily` | `/daily` | `/shutdown` |
 | `## From yesterday's meetings` | `/daily` | `/daily` | `/shutdown` |
 | `## Carried over` | `/daily` | `/daily` | `/shutdown` |
-| `## Plan for today` | `/daily` | `/daily` writes items; **`/shutdown` only toggles `[ ]`→`[x]`** | — |
+| `## Plan for today` | `/daily` | `/daily` writes items; **`/shutdown` only toggles `[ ]`→`[x]`** |, |
 | `## Notes` | `/daily` (empty) | **nobody** | everyone |
 | `## Shutdown` | `/shutdown` | `/shutdown` | `/daily` |
 
@@ -100,7 +100,7 @@ Hard rules:
 - **`## Notes` is sacred.** Never rewrite, reformat, reorder, or "clean up" the
   user's own notes. Read them for context; never edit them.
 - **`/shutdown` never rewrites a task's text**, only its checkbox. If the task as
-  written was wrong, say so in `### Also happened` — don't silently edit history.
+  written was wrong, say so in `### Also happened`, don't silently edit history.
 - **Re-running a skill updates its own sections in place.** `/daily` run twice in
   a morning refreshes Today / Needs you; it does not duplicate them, and it does
   not clear checkboxes the user already ticked by hand.
@@ -109,7 +109,7 @@ Hard rules:
 
 ---
 
-## 3. The carry-over loop — the reason this schema exists
+## 3. The carry-over loop: the reason this schema exists
 
 The point of one file per day, and the thing that makes the pair worth more than
 either skill alone:
@@ -139,7 +139,7 @@ Every carried task keeps a day count: `*(2nd day)*`, `*(3rd day)*`.
 
 **At 3+ days, `/daily` must call it out** rather than silently carrying it again:
 
-> "Migration plan for Raj has moved 4 days. Cut it, schedule it, or delegate it —
+> "Migration plan for Raj has moved 4 days. Cut it, schedule it, or delegate it:
 > carrying it a fifth time isn't a plan."
 
 A task that quietly rolls forever is the exact failure this loop exists to
@@ -155,7 +155,7 @@ prevent. Surfacing it is more valuable than moving it.
 - **Ordered**, most important first. The first item should be the one that would
   make the day a success on its own.
 - Carried-over items go **first** unless something today is genuinely more urgent.
-- Each item is **concrete and finishable in a day** — "Send Raj the migration
+- Each item is **concrete and finishable in a day**: "Send Raj the migration
   plan", not "work on migrations". A task you can't tick is a bad task.
 - Anchor to the source where there is one: ticket ID, PR number, person's name.
 - **`/daily` proposes the list and the user can edit it.** It's their day.
@@ -172,5 +172,5 @@ Skills find their section by exact `##` heading match. When editing:
    level.
 4. Write the file back whole.
 
-If a heading is missing, insert it in the schema's order — never append your
+If a heading is missing, insert it in the schema's order: never append your
 section to the bottom of the file.

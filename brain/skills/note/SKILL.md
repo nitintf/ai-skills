@@ -12,7 +12,7 @@ description: >-
   "capture this", or invokes /note.
 ---
 
-# note — capture a learning into the Obsidian second brain
+# note: capture a learning into the Obsidian second brain
 
 You turn a messy brain-dump into a note that looks like Nitin sat down and wrote
 it himself: right folder, right voice, linked up, index updated. The bar is
@@ -23,7 +23,7 @@ if the facts are correct.
 
 **Resolve the vault root before doing anything else.** In order:
 
-1. `$OBSIDIAN_VAULT` if it's set — this is the supported way to configure it.
+1. `$OBSIDIAN_VAULT` if it's set: this is the supported way to configure it.
 2. Otherwise locate it: an Obsidian vault is any directory containing a
    `.obsidian/` folder.
    ```
@@ -34,8 +34,8 @@ if the facts are correct.
 3. Nothing found → ask the user for the path, and suggest they
    `export OBSIDIAN_VAULT=<path>` so this step is instant next time.
 
-**Never write to a guessed path.** If you can't resolve the vault, stop and ask —
-silently creating notes at a path that doesn't exist is the worst outcome here.
+**Never write to a guessed path.** If you can't resolve the vault, stop and ask.
+Silently creating notes at a path that doesn't exist is the worst outcome here.
 
 Everywhere below, `$VAULT` means the resolved root.
 
@@ -44,7 +44,7 @@ It is not optional. It is the difference between this skill working and not.
 
 ---
 
-## Step 1 — Take the dump as-is
+## Step 1: Take the dump as-is
 
 The user's input is whatever they said, however messy: half sentences, spoken
 filler, jumped-around ordering. Don't ask them to clean it up. Your job is to
@@ -53,18 +53,18 @@ turn it into a good note, not to demand a good input.
 Pull out: **the topic**, **the key points they actually made**, and **any
 source** they mentioned (a video, article, book, URL).
 
-## Step 2 — Detect the mode (auto, ask only if genuinely unclear)
+## Step 2: Detect the mode (auto, ask only if genuinely unclear)
 
-- **Verbatim mode** — they clearly dumped the full content, explained the thing
+- **Verbatim mode**: they clearly dumped the full content, explained the thing
   in some depth, and mostly want it cleaned up, structured, and placed. Here you
   **stay close to their words**: reorganize, tighten, format to house style, add
   wikilinks. Do not invent new sections of content.
-- **Expand mode** — they gave a topic and a few sparse points ("learned about
+- **Expand mode**: they gave a topic and a few sparse points ("learned about
   sharding, DBs get too big, hash vs range, hot shards") and want you to write
   the full note. Here you apply **light enrichment** per `VOICE.md`: their points
   are the backbone, you add standard connective tissue and structure, and you
   **flag anything you inferred** with a callout.
-- **Topic-only expand** — the extreme of expand mode: they give just a topic
+- **Topic-only expand** is the extreme of expand mode: they give just a topic
   name and nothing else (`/note logical replication in postgres`). There's no
   backbone to enrich, so you write the whole note from your own knowledge, still
   in Nitin's voice. Because none of it came from him, **accuracy discipline is
@@ -77,7 +77,7 @@ source** they mentioned (a video, article, book, URL).
 If it's ambiguous which mode they want, ask once, briefly. Otherwise just pick
 and proceed.
 
-## Step 3 — Decide placement (explore the real vault every time)
+## Step 3: Decide placement (explore the real vault every time)
 
 Folders change, so never work from memory. **List the current tree** under
 `Learn/` (and the vault root) before deciding.
@@ -92,7 +92,7 @@ Then reason about where this topic belongs, following the vault's real shape:
   the topical hierarchy, nested as deep as the topic is specific. Examples:
   - sharding -> `Learn/System Design/Topics/Database/Sharding.md`
   - a sorting algo -> `Learn/DSA/Alogrithms/Sorting/<Name>.md`
-    (note: the existing folder is literally spelled `Alogrithms` — match the real
+    (note: the existing folder is literally spelled `Alogrithms`, match the real
     folder name, don't "correct" it and create a duplicate.)
   - a Rust concept -> `Learn/Languages/Rust/<Topic>.md`
 - **Reading / source note** (they're capturing a specific video/article/book)
@@ -106,7 +106,7 @@ Then reason about where this topic belongs, following the vault's real shape:
 paths and ask** rather than dumping into a root folder or guessing. Never drop a
 learning loose in the vault root or in `Inbox/` unless the user asks for Inbox.
 
-## Step 4 — New note or merge into an existing one
+## Step 4: New note or merge into an existing one
 
 Search the vault for an existing note on this topic before creating anything:
 
@@ -118,20 +118,20 @@ grep -ril '<topic>' $VAULT/Learn
 - **No existing note** -> create a new one (Step 5).
 - **Existing note(s) found** -> do **not** silently overwrite. Read the
   existing note, then present a short plan and let the user confirm:
-  - **Append a section** — the new material is a distinct subtopic; add a `##`
+  - **Append a section**: the new material is a distinct subtopic; add a `##`
     section to the existing note.
-  - **Merge / rewrite** — the new material overlaps or improves existing text;
+  - **Merge / rewrite**: the new material overlaps or improves existing text;
     fold it in, dedupe, and keep the note coherent.
-  - **New linked sub-note** — the topic is big enough to stand alone; create it
+  - **New linked sub-note**: the topic is big enough to stand alone; create it
     and add a `[[wikilink]]` from the parent note.
 
   Show what you'll do and a diff of the change. Only write after they confirm.
 
-## Step 5 — Write the note (in Nitin's voice)
+## Step 5: Write the note (in Nitin's voice)
 
 Apply `VOICE.md` in full. The essentials:
 
-**Evergreen concept note** — minimal frontmatter, then a bare definition body:
+**Evergreen concept note**, minimal frontmatter, then a bare definition body:
 
 ```markdown
 ---
@@ -155,7 +155,7 @@ tags:
 - Bold-on-first-mention, inline code for technical tokens, `->` not `—`,
   Obsidian `> [!info]` callouts for tradeoffs/rules, wikilinks with aliases.
 
-**Reading / source note** — use the source scaffold Nitin already uses (see
+**Reading / source note**: use the source scaffold Nitin already uses (see
 `Learn/Reading/Databases/Why Elasticsearch Is So Fast.md`):
 
 ```markdown
@@ -183,11 +183,11 @@ Date: <today's date>
 - Related: [[<domain index>|<Domain>]]
 ```
 
-## Step 5.5 — Diagrams (rarely, and only Mermaid)
+## Step 5.5: Diagrams (rarely, and only Mermaid)
 
 A diagram is a treat, not a default. **Most notes get none.** Only add one when
 the concept is genuinely visual or structural and words alone make it harder to
-grasp. In practice that's roughly **one note in four (~20-30%)** — if you find
+grasp. In practice that's roughly **one note in four (~20-30%)**: if you find
 yourself adding a diagram to most notes, you're overdoing it and diluting the
 ones that matter. When unsure, don't.
 
@@ -211,10 +211,10 @@ flowchart LR
 ```
 ````
 
-Do **not** generate Excalidraw files — Nitin's plugin stores them as compressed
+Do **not** generate Excalidraw files, Nitin's plugin stores them as compressed
 binary, which can't be hand-written reliably. Mermaid only.
 
-## Step 6 — Wire up links both directions and update the index hub
+## Step 6: Wire up links both directions and update the index hub
 
 Links are what make this a connected brain instead of a folder of orphans. Do
 all three of these, not just the first.
@@ -231,7 +231,7 @@ existing notes that *should* now point to it, and wire them up. Two cases:
    note solves. Example: `Sharding.md` has a section on generating unique IDs
    across shards and lists a couple of approaches; you just created
    `Snowflake IDs.md`. Open `Sharding.md`, find that exact spot, and add the
-   link there (a bullet in the list, or inline in the sentence) — not bolted at
+   link there (a bullet in the list, or inline in the sentence), not bolted at
    the bottom. The link lands where the reader is already thinking about it.
 
 2. **Promote a plain-text mention to a link.** An existing note already says the
@@ -240,7 +240,7 @@ existing notes that *should* now point to it, and wire them up. Two cases:
    "snowflake" in a sentence -> becomes `[[Snowflake IDs|snowflake]]`. This is
    Obsidian's "unlinked mentions" idea, done at write time.
 
-**How to find them** — search the vault for the new note's title and its obvious
+**How to find them**: search the vault for the new note's title and its obvious
 surface forms (singular/plural, with/without "IDs", common short name):
 
 ```
@@ -259,10 +259,10 @@ user confirm, then apply. Never silently rewrite another note.
 
 ### 6c. Update the index hub
 **Update the parent `index.md`** (create one if the folder has none, following
-the existing index format): add `[[<Note>]] — <date>` under the best-fitting
+the existing index format): add `[[<Note>]], <date>` under the best-fitting
 `##` section. Match the existing index's section style and dash convention.
 
-## Step 7 — Show it, then save
+## Step 7: Show it, then save
 
 Show the user the final note (or the diff, for a merge) and the target path
 before or right as you write it, so they can catch a wrong folder or a wrong
@@ -283,7 +283,7 @@ explicitly asks. Writing the files is the job; version control is theirs.
 - **Don't fabricate.** In expand mode, added claims must be standard and correct;
   flag inferences with a callout instead of stating shaky things as fact.
 - **Match real folder names**, including existing typos (`Alogrithms`,
-  `Aritcles`) — never create a "corrected" duplicate folder.
+  `Aritcles`), never create a "corrected" duplicate folder.
 - **Ask before overwriting** an existing note. Merges get a plan + diff first.
 - **Editing other notes needs confirmation.** Backlink reconciliation (6b) can
   touch several existing notes; always show the batch of edits + diff and get a

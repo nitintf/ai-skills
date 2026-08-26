@@ -1,7 +1,7 @@
 {
   "name": "eng",
   "description": "Plan-to-ship engineering pipeline. Six composable skills (scope, grill, eng-review, tdd, execute, ship) plus an orchestrator (eng-flow), each a single pass over a shared markdown doc in the project's .plan folder, with full and express tracks. Standalone skills: conventions (house-style cache every other skill reads), understand, debug, spike, adr, refactor, backfill-tests, pr-review, review.",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "author": {
     "name": "Nitin Panwar",
     "email": "nitinpanwar0802@gmail.com"

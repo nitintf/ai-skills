@@ -1,22 +1,17 @@
 ---
 name: prd
 description: >-
-  Write a real Product Requirements Document at the bar a senior/staff engineer
-  or PM would ship at a top org (Google, Meta, Amazon, Apple). Gathers context,
-  grills the user on the gaps, then produces a rigorous PRD: crisp problem
-  statement, measurable goals & explicit non-goals, success metrics with
-  baseline→target, prioritized requirements (P0/P1/P2), user journeys, risks,
-  dependencies, and a phased rollout. Standalone — its output can feed /scope but
-  it is NOT in the eng doc schema. Use when the user wants a PRD, product spec,
-  one-pager, or PR/FAQ. Triggers: "write a PRD", "product spec", "product
-  requirements", "spec this out", "one-pager", "PR/FAQ".
+  Write a Product Requirements Document at a staff bar: problem, measurable
+  goals and non-goals, success metrics, prioritized requirements, risks, and
+  rollout.
+disable-model-invocation: true
 ---
 
-# prd — staff-level Product Requirements Document
+# prd: staff-level Product Requirements Document
 
 Produce a PRD at the standard of a senior/staff engineer or PM at a top-tier org.
 A great PRD is **about the what and the why, not the how**. It is crisp,
-falsifiable, and decision-forcing — not a wall of prose. Ruthless about goals vs
+falsifiable, and decision-forcing, not a wall of prose. Ruthless about goals vs
 non-goals, honest about risks, and every success metric is measurable.
 
 This skill is **independent of the `eng` plugin.** Its output is a polished PRD
@@ -28,20 +23,20 @@ it in the eng doc schema.
 ### 1. Gather context (don't write yet)
 - Understand the idea from the user. Pull in any existing material (linked docs,
   the codebase, prior art).
-- **If a personas skill is installed** (check the available skills for one — some
+- **If a personas skill is installed** (check the available skills for one, some
   orgs ship their own, e.g. a `*-personas` skill), load it so the PRD references
   real personas rather than invented ones. If there isn't one, ask the user who
   the actual users are instead of inventing a persona; a fabricated persona is
   worse than a plainly-described user segment.
 
 ### 2. Grill the gaps before writing
-A PRD is only as good as its inputs. Ask the user — in small batches, one topic
-at a time, with your recommended answer for each — about whatever is unclear:
+A PRD is only as good as its inputs. Ask the user: in small batches, one topic
+at a time, with your recommended answer for each: about whatever is unclear:
 - **Problem**: whose problem, how painful, how do we know it's real (evidence)?
 - **Goal & success**: what does winning look like, and what metric proves it?
 - **Scope**: what's explicitly out? what's the smallest valuable version?
 - **Constraints**: deadlines, platforms, compliance, dependencies.
-Don't invent answers to material questions — get them, or list them as Open
+Don't invent answers to material questions: get them, or list them as Open
 Questions.
 
 ### 3. Choose the format
@@ -55,7 +50,7 @@ it as a sibling), or wherever the user prefers (e.g. `docs/prd/`). Use this
 structure:
 
 ```markdown
-# <Product / Feature name> — PRD
+# <Product / Feature name>: PRD
 
 | Field | |
 |-------|---|
@@ -125,8 +120,8 @@ launch plan, how we de-risk.>
 <Links to data, designs, prior docs, related ADRs.>
 ```
 
-(If PR/FAQ format: lead with a one-page mock **press release** — headline, dated
-dateline, customer quote, problem→solution narrative — followed by an
+(If PR/FAQ format: lead with a one-page mock **press release**, headline, dated
+dateline, customer quote, problem→solution narrative, followed by an
 **anticipated FAQ** for customers and for internal stakeholders.)
 
 ### 5. Quality bar before you finish

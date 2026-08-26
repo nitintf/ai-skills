@@ -10,7 +10,7 @@ description: >-
   "summarize this branch/PR/diff", "since I last looked".
 ---
 
-# catchup — get back up to speed fast
+# catchup: get back up to speed fast
 
 Produce a concise, accurate summary of what changed in a scope the user gives
 you, so they can resume or review without reading every line.
@@ -30,14 +30,14 @@ Figure out what to summarize from the user's request:
 Use `git log --stat`, `git diff`, and `gh` as needed. Read enough of the diff to
 understand intent, not just file names. Don't guess.
 
-### 3. Summarize — tight and structured
+### 3. Summarize: tight and structured
 Output to chat (no file unless asked):
 
-- **TL;DR** — 1-2 sentences: the gist of what changed and why.
-- **Changes** — grouped by area/feature, each with the *why*, not just the what.
-- **Risk / watch-out areas** — anything subtle, breaking, migration-related, or
+- **TL;DR**: 1-2 sentences, the gist of what changed and why.
+- **Changes**: grouped by area/feature, each with the *why*, not just the what.
+- **Risk / watch-out areas**: anything subtle, breaking, migration-related, or
   worth a closer look in review.
-- **What's left / next** — open TODOs, failing checks, unfinished threads (if
+- **What's left / next**: open TODOs, failing checks, unfinished threads (if
   detectable from commits, comments, or `.plan` docs).
 
 ### 4. Keep it honest

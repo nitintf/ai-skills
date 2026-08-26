@@ -1,0 +1,9 @@
+{
+  "name": "writing",
+  "description": "Plain, direct English for everything Claude writes. /unslop rewrites or audits text that reads like AI wrote it, and a SessionStart hook keeps the house style live in every session without you asking for it.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Nitin Panwar",
+    "email": "nitinpanwar0802@gmail.com"
+  }
+}

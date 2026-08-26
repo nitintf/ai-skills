@@ -1,20 +1,13 @@
 ---
 name: product-flow
-description: >-
-  Orchestrator for the product side. Takes a raw feature idea and produces the
-  whole bundle in one guided run — PRD → user stories → handoff to eng's /scope
-  for ticket breakdown — pausing at a gate between each so you stay in control.
-  Reads the phase from the docs already in `.plan/<feature-slug>/`, so it resumes
-  wherever you left off. Use when you have an idea and want it turned into
-  something buildable, rather than invoking /prd and /user-stories one at a time.
-  Triggers: "product flow", "take this idea to tickets", "full feature package",
-  "idea to build", "spec this feature end to end".
+description: Take a raw idea through PRD, then user stories, then hand off to `/scope`, gating between each. Resumes from whatever is already in `.plan/<feature>/`.
+disable-model-invocation: true
 ---
 
-# product-flow — one idea in, a buildable feature package out
+# product-flow: one idea in, a buildable feature package out
 
 The `product` mirror of `/eng-flow`. You chain the product skills so a raw idea
-becomes a PRD, then stories, then engineering tickets — with a gate between each
+becomes a PRD, then stories, then engineering tickets: with a gate between each
 so the user can redirect before the next stage compounds a bad assumption.
 
 Like `eng-flow`, you are deliberately **dumb**: the files on disk hold the state.
@@ -30,7 +23,7 @@ Pick the feature slug from the idea (kebab-case), then look at
 | nothing | `/prd` |
 | `PRD.md` | `/user-stories` |
 | `PRD.md` + `user-stories.md` | hand off to eng's `/scope` |
-| `NN-*/doc.md` folders too | already in the eng pipeline — point at `/eng-flow` |
+| `NN-*/doc.md` folders too | already in the eng pipeline, point at `/eng-flow` |
 
 If several features exist, ask which. If the user's idea clearly matches an
 existing PRD, resume that one rather than starting a near-duplicate.
@@ -38,14 +31,14 @@ existing PRD, resume that one rather than starting a near-duplicate.
 ## 2. Right-size the run before you start
 
 The full chain is right for a real feature and heavy for a small one. Ask up
-front — one question, with a recommendation:
+front, one question, with a recommendation:
 
-- **Full package** — PRD → stories → tickets. For anything genuinely new, or
+- **Full package**: PRD → stories → tickets. For anything genuinely new, or
   work that needs stakeholder alignment, or where the problem itself is still
   fuzzy.
-- **Stories only** — skip the PRD. For a well-understood feature where the *what*
+- **Stories only**: skip the PRD. For a well-understood feature where the *what*
   isn't in doubt and you just need it sliced.
-- **Straight to `/scope`** — for a technical task with no real product surface.
+- **Straight to `/scope`**: for a technical task with no real product surface.
   Say so honestly rather than generating ceremony nobody will read. A PRD for
   "add a retry to the webhook sender" is waste.
 
@@ -54,22 +47,22 @@ this skill is most likely to cause.
 
 ## 3. Run the stages, gating between each
 
-### Stage 1 — `/prd`
+### Stage 1: `/prd`
 Produces `.plan/<feature-slug>/PRD.md`. It grills the user on problem, goals,
 metrics, and scope before writing.
 
 **Gate:** summarize the PRD's problem statement, goals, and non-goals in a few
 lines and ask whether it's right. This is the cheapest possible moment to catch
-a wrong problem statement — every artifact after this inherits it.
+a wrong problem statement, every artifact after this inherits it.
 
-### Stage 2 — `/user-stories`
+### Stage 2: `/user-stories`
 Reads the PRD, produces `.plan/<feature-slug>/user-stories.md`.
 
 **Gate:** report the story count, the P0s, and the ordering. Ask whether the
-slicing is right. Specifically flag any PRD goal with no story covering it —
+slicing is right. Specifically flag any PRD goal with no story covering it:
 that gap is the most common defect at this stage.
 
-### Stage 3 — hand off to `/scope`
+### Stage 3: hand off to `/scope`
 `/scope` (eng plugin) reads both files as inputs and turns them into tickets.
 
 **Gate:** this crosses from product into engineering, and the eng pipeline writes
@@ -82,7 +75,7 @@ whatever ticketing process they use.
 
 ## 4. Keep the artifacts consistent
 
-The stages share a folder, and the failure mode is drift — stories that quietly
+The stages share a folder, and the failure mode is drift: stories that quietly
 contradict the PRD they came from.
 
 - If a later stage surfaces something that invalidates an earlier doc (a story
@@ -96,7 +89,7 @@ contradict the PRD they came from.
 ## 5. Finish
 
 Summarize the package: the paths written, the shape of it (N goals, M stories,
-P0 count), and the honest state — what's decided, what's still an open question
+P0 count), and the honest state, what's decided, what's still an open question
 in the PRD. Then point at the next step: `/scope` if they're building now,
 `/eng-flow` to run the whole thing to shipped.
 
@@ -108,5 +101,5 @@ in the PRD. Then point at the next step: `/scope` if they're building now,
 - **Gate every stage.** A wrong problem statement propagated into stories and
   then tickets is the expensive failure this orchestrator exists to prevent.
 - **You orchestrate; the skills do the work.** No PRD-writing or story-slicing
-  logic lives here — that belongs in `/prd` and `/user-stories`, which must keep
+  logic lives here: that belongs in `/prd` and `/user-stories`, which must keep
   working standalone.

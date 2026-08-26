@@ -1,4 +1,4 @@
-# VOICE — how Nitin writes his notes
+# VOICE: how Nitin writes his notes
 
 This is the single most important file in the skill. A note that lands in the
 right folder but sounds like AI is a **failure**. Read this in full before
@@ -43,14 +43,14 @@ engineer working an idea out on the page until it clicks. The reader is always
   `N-1`, `2N + 1`. Code fences for formulas/sequences.
 - **Arrows, not em dashes**, for sequence and causality: `8 -> 4 -> 2 -> 1`,
   `Inline obj -> new ref -> re-render`. Use `->`.
-- **Obsidian callouts for asides** — this is a signature move. Use them for
+- **Obsidian callouts for asides**: this is a signature move. Use them for
   rules of thumb, tradeoffs, hidden assumptions, and "remember this":
   ```
   > [!info] The tradeoff
   > An ordered array makes searching much faster at the cost of slower insertion.
   ```
   Give the callout a short title when it earns one (`> [!info] One symmetry to
-  remember`). Don't overuse — a note has one to three of these, not ten.
+  remember`). Don't overuse: a note has one to three of these, not ten.
 - **Wikilinks with aliases** to related notes, inline in prose:
   `[[Sets|set]]`, `[[Binary Search]]`, `see [[../index|Databases]]`.
 - Concrete numeric examples over abstract description. When explaining a cost,
@@ -65,14 +65,14 @@ engineer working an idea out on the page until it clicks. The reader is always
 - parentheses for a quiet aside.
 
 (The one place `—` is tolerated is inside `index.md` link lists, e.g.
-`[[Note]] — 2026-06-08`, because that's the existing index convention. Match
+`[[Note]], 2026-06-08`, because that's the existing index convention. Match
 whatever the index file already does.)
 
 ## Enrichment discipline (expand mode)
 
 In expand mode you're fleshing out a topic from sparse spoken points. **Light
 enrichment only**: Nitin's spoken points are the backbone. You may add obvious
-connective tissue, standard definitions, and structure — but:
+connective tissue, standard definitions, and structure, but:
 
 - Do not invent numbers, benchmarks, quotes, or specifics he didn't say and you
   can't stand behind.
@@ -82,7 +82,7 @@ connective tissue, standard definitions, and structure — but:
   so he can check it, rather than smuggling it in as fact:
   ```
   > [!question] Check this
-  > I don't think you said this — added from general knowledge. Verify the exact
+  > I don't think you said this, added from general knowledge. Verify the exact
   > replication-lag behavior before trusting it.
   ```
 - Better to leave a section thin with an honest `> [!todo]` stub than to pad it
@@ -96,7 +96,7 @@ connective tissue, standard definitions, and structure — but:
 > ## Introduction to Sharding
 > Sharding is an important database technique that allows you to scale your
 > systems. In this note, we'll explore what sharding is, why it matters, and how
-> it works — let's dive in! Sharding — the process of splitting data — is
+> it works, let's dive in! Sharding, the process of splitting data, is
 > essential for modern applications.
 
 ✅ Nitin voice (do this):

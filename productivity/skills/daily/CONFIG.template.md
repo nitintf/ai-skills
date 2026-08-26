@@ -1,12 +1,12 @@
-# Daily brief — filter config
+# Daily brief: filter config
 
 Copied to `~/.claude/daily-brief.config.md` on first run of `/daily`. **Edit it
-there, not here** — this is the template, and a plugin update overwrites it.
+there, not here**: this is the template, and a plugin update overwrites it.
 
 This file is what makes the brief good. The defaults below are a starting point;
 `/daily --tune` will propose real values from your mail history, and you should
 keep tightening it for the first couple of weeks. If a brief ever shows you
-something you didn't care about, add a rule here — that's the whole loop.
+something you didn't care about, add a rule here: that's the whole loop.
 
 ---
 
@@ -22,7 +22,7 @@ timezone:
 
 Add every address you receive at. The To:-vs-CC: rule can't work without them.
 
-## Always surface — people
+## Always surface: people
 
 Mail or messages from these people always make the brief, regardless of other
 rules. Your manager, your direct collaborators, anyone whose ask blocks you.
@@ -32,7 +32,7 @@ rules. Your manager, your direct collaborators, anyone whose ask blocks you.
 - name@example.com          # tech lead
 ```
 
-## Always surface — domains
+## Always surface: domains
 
 Whole domains that matter (a key customer, a partner, your own company).
 
@@ -40,7 +40,7 @@ Whole domains that matter (a key customer, a partner, your own company).
 - @yourcompany.com
 ```
 
-## Never surface — senders
+## Never surface: senders
 
 Aggressive by default. Everything automated belongs here.
 
@@ -55,7 +55,7 @@ Aggressive by default. Everything automated belongs here.
 - *@vercel.com
 ```
 
-## Never surface — subject patterns
+## Never surface: subject patterns
 
 ```
 - "unsubscribe"
@@ -125,7 +125,7 @@ skip:
   - general-discussion
 ```
 
-## GitHub — used by /shutdown, /standup, /weekly
+## GitHub: used by /shutdown, /standup, /weekly
 
 Evidence of what you actually did. Prefers the GitHub MCP if connected, else
 falls back to `gh` CLI and local `git` (which are usually faster anyway).
@@ -165,7 +165,7 @@ max-sentences: 5
 
 ```
 max-items-per-section: 5      # more than this means the filter needs tightening
-tasks-per-day: 3-5            # hard ceiling of 5 — a longer list is a wish, not a plan
+tasks-per-day: 3-5            # hard ceiling of 5, a longer list is a wish, not a plan
 carry-over-warn-days: 3       # flag a task that's moved this many days
 show-empty-sections: false
 show-source-status: true      # so a thin brief is never mistaken for a quiet day
@@ -179,5 +179,5 @@ Keep a running log of what you cut and why. It's the fastest way to a filter tha
 actually fits you, and it stops you re-litigating the same rule.
 
 ```
-2026-08-13  Muted #deploys — never once actionable
+2026-08-13  Muted #deploys, never once actionable
 ```

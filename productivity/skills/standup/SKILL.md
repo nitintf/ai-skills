@@ -1,15 +1,12 @@
 ---
 name: standup
 description: >-
-  Give you your standup update in plain, simple English you can read out loud as
-  it is — what you worked on, then what you will work on next. Nothing else. It
-  builds this from yesterday's shutdown notes, today's plan, and your actual
-  commits and PRs, so you don't have to remember. Only says what you did, never
-  what you didn't. Prints to chat; writes nothing. Triggers: "standup", "stand
-  up", "daily standup", "what do I say in standup", "scrum update".
+  Print your standup update in plain speakable English: what you worked on, what
+  you will work on next. Writes nothing.
+disable-model-invocation: true
 ---
 
-# standup — what to say, in words you can just say
+# standup: what to say, in words you can just say
 
 Nitin reads this out loud in a meeting. That single fact decides everything about
 the output.
@@ -36,24 +33,24 @@ If yesterday's task is still going, say it as **present work**, not as a failure
 
 Same information, and the first one is what a person actually says in standup.
 
-## Step 1 — Get the material
+## Step 1: Get the material
 
 You already have all of it. Read, in this order:
 
-1. **Yesterday's daily note** — `$VAULT/Daily/<most recent>.md`, the
+1. **Yesterday's daily note**: `$VAULT/Daily/<most recent>.md`, the
    `## Shutdown → ### Done` and `### Also happened` sections. This is the best
    source for "what I worked on", because it was written with real evidence.
-2. **Today's daily note** — `## Plan for today`. This is "what I will work on
+2. **Today's daily note**: `## Plan for today`. This is "what I will work on
    next".
-3. **Commits and PRs**, if the notes are thin or missing — GitHub MCP if
+3. **Commits and PRs**, if the notes are thin or missing: GitHub MCP if
    connected, else `git log --author=<you> --since=yesterday` across the repos he
    touched, plus `gh pr list --author @me`. Commit messages are a good record of
    real work.
 
 Schema for the notes is in `${CLAUDE_PLUGIN_ROOT}/DAILY-NOTE.md`. If no notes
-exist at all, build it from git alone — never ask him to recall his day.
+exist at all, build it from git alone, never ask him to recall his day.
 
-## Step 2 — Write it the way he will say it
+## Step 2: Write it the way he will say it
 
 **Three to five short sentences. Twenty to thirty seconds spoken.** Group related
 work into one sentence instead of listing every commit.
@@ -67,7 +64,7 @@ Use plain, everyday words:
 - "I will take up ACME-231 after that."
 - "I need one input from Raj on the schema."
 
-Keep it in that register. **Do not use corporate or American idiom** — no
+Keep it in that register. **Do not use corporate or American idiom**: no
 "circled back", "touched base", "bandwidth", "deep dive", "reached out", "synced
 up", "low-hanging fruit", "aligned on". Nobody says these out loud, and they make
 an update sound written.
@@ -75,14 +72,14 @@ an update sound written.
 Also drop:
 - Ticket IDs and PR numbers, **unless the team uses them in standup**. "I
   finished the retry logic" is better than "I completed ACME-231."
-- Hedging — "I think", "kind of", "hopefully", "tried to".
-- Filler openers — "So basically", "Just wanted to say".
+- Hedging, "I think", "kind of", "hopefully", "tried to".
+- Filler openers, "So basically", "Just wanted to say".
 - Any explanation of *why* something took long. Nobody asked.
 
-## Step 3 — Blockers, only if real
+## Step 3: Blockers, only if real
 
 He did not ask for a blockers section, and most days there isn't one. **Add one
-line only when he is genuinely waiting on another person** — not when something
+line only when he is genuinely waiting on another person**: not when something
 is merely hard or unfinished.
 
 - "I need one input from Raj on the schema."
@@ -91,7 +88,7 @@ is merely hard or unfinished.
 Otherwise say nothing about blockers. Do not write "No blockers" unless his team
 expects everyone to say it.
 
-## Step 4 — Print it
+## Step 4: Print it
 
 Chat only. **Write no files.** Give him the update as a small block he can read
 straight off the screen:

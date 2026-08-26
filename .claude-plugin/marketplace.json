@@ -5,8 +5,8 @@
     "email": "nitinpanwar0802@gmail.com"
   },
   "metadata": {
-    "description": "Nitin's personal Claude Code plugins \u2014 reusable skill packs for engineering workflows.",
-    "version": "0.3.0"
+    "description": "Nitin's personal Claude Code plugins: reusable skill packs for engineering, product, daily workflow, note capture, and writing.",
+    "version": "0.4.0"
   },
   "plugins": [
     {
@@ -22,12 +22,17 @@
     {
       "name": "productivity",
       "source": "./productivity",
-      "description": "Daily working rhythm plus workflow helpers. /daily plans the day into a task list, /shutdown closes it with real evidence from commits and PRs, /standup prints a speakable update, /weekly reviews the week and builds your self-review evidence \u2014 all writing to one Obsidian daily note per day. Also: catchup, caveman, handoff, stress-test."
+      "description": "Daily working rhythm plus workflow helpers. /daily plans the day into a task list, /shutdown closes it with real evidence from commits and PRs, /standup prints a speakable update, /weekly reviews the week and builds your self-review evidence — all writing to one Obsidian daily note per day. Also: catchup, caveman, handoff, stress-test."
     },
     {
       "name": "brain",
       "source": "./brain",
       "description": "Second-brain capture for an Obsidian vault: dump what you just learned by voice or text and /note places it in the right Learn/ folder, writes it up in your own note-taking voice (not AI voice), wires up bidirectional wikilinks, and updates the index hub. Vault located via $OBSIDIAN_VAULT or by finding .obsidian/."
+    },
+    {
+      "name": "writing",
+      "source": "./writing",
+      "description": "Plain, direct English for everything Claude writes. /unslop rewrites or audits text that reads like AI wrote it, and a SessionStart hook keeps the house style live in every session without you asking for it."
     }
   ]
 }
