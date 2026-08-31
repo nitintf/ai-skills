@@ -9,7 +9,8 @@ their descriptions never sit in the model's context. That keeps the always-loade
 cost low, and it makes **[`/ask`](productivity/skills/ask/SKILL.md)** the one
 skill worth remembering: describe your situation and it routes you to the right
 one. A handful stay model-invoked (`/conventions`, `/understand`, `/debug`,
-`/refactor`, `/backfill-tests`, `/review`, `/pr-review`, `/catchup`, `/note`,
+`/refactor`, `/backfill-tests`, `/review`, `/pr-walkthrough`, `/pr-review`,
+`/catchup`, `/note`,
 `/unslop`) because the agent can usefully reach for them on its own.
 
 ## `eng`: plan-to-ship engineering pipeline
@@ -56,7 +57,8 @@ require a `.plan` doc.
 | `/resolve-conflicts` | Work a merge, rebase, or cherry-pick conflict hunk by hunk, resolving by **traced intent** rather than by picking a side. Hunts the semantic conflicts that leave no markers. Finishes the operation, never `--abort`. |
 | `/refactor`       | Plan + safely execute a **behavior-preserving** refactor: safety net first, atomic steps kept green, verify nothing changed. |
 | `/backfill-tests` | Characterization tests for existing untested code: lock in current behavior and **surface suspected bugs** instead of encoding them. |
-| `/pr-review`      | Staff/principal review of the current branch vs main, with `gh` context: correctness → architecture → **house-style consistency**, blocking vs nits. Your **pre-merge** review. |
+| `/pr-walkthrough` | **Understand** a PR you didn't write, before judging it: intent from the ticket, how the area works today, a dependency-ordered reading path, the before/after runtime trace, and the questions only the author can answer. Explains, never grades. Hands off to `/pr-review`. |
+| `/pr-review`      | Staff/principal review of a PR, yours or someone else's, with `gh` and ticket context: correctness → architecture → **house-style consistency**, blocking vs nits. Your **pre-merge** review. |
 | `/review`         | Fast **pre-commit** gut-check of the uncommitted working diff. Lighter than `/pr-review`; no branch, no `gh`. |
 
 > Claude Code also ships a built-in `/code-review` with a `--fix` mode and a
@@ -176,10 +178,20 @@ finding the `.obsidian/` directory.
 
 ## `writing`: plain English, always on
 
-The only plugin here that changes how Claude writes without being asked. It
-ships a `SessionStart` hook that loads [`writing/RULES.md`](writing/RULES.md)
-into every session, including after a compaction, so the house style is live
-whether or not you remember to ask for it.
+The only plugin here that changes how Claude writes without being asked. Two
+hooks carry it:
+
+- **`SessionStart`** loads [`writing/RULES.md`](writing/RULES.md) into every
+  session, including after a compaction, so the house style is live whether or
+  not you remember to ask for it.
+- **`Stop`** runs [`no-em-dash.py`](writing/scripts/no-em-dash.py) against every
+  reply and refuses to end the turn where an em-dash or en-dash reaches the
+  prose, handing back the offending fragments to be rewritten. Code blocks,
+  inline code, and URLs are exempt. It blocks at most once per turn, so a model
+  that cannot comply still terminates.
+
+Prose rules alone did not hold: em-dashes kept surviving because a style
+instruction is advice and a hook is a gate.
 
 | Skill      | What it does                                                          |
 |------------|-----------------------------------------------------------------------|

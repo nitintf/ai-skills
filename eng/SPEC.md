@@ -222,7 +222,8 @@ answers between skills. So it's derived once and cached.
 - **Written by `/conventions`.** Its format and the checklist of what belongs in
   it live in `CONVENTIONS.md`, next to this file.
 - **Read by** `scope`, `grill`, `eng-review`, `tdd`, `execute`, `ship`,
-  `pr-review`, `review`, `refactor`, `backfill-tests`, `debug`, `understand`.
+  `pr-walkthrough`, `pr-review`, `review`, `refactor`, `backfill-tests`,
+  `debug`, `understand`.
 - **Every consuming skill follows the same protocol:**
   1. Read `.plan/_conventions.md` if it exists.
   2. Check its `generated` date and `commit` frontmatter against `git log -1`.

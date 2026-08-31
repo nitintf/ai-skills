@@ -7,7 +7,9 @@ description: >-
   Great for resuming after a break, reviewing what a teammate pushed, or before
   picking up a PR. Use when the user asks what changed or wants to get back up to
   speed. Triggers: "catch me up", "catchup", "what changed", "what did I miss",
-  "summarize this branch/PR/diff", "since I last looked".
+  "summarize this branch/PR/diff", "since I last looked". Do NOT use for:
+  understanding someone else's PR in depth before reviewing it, that's
+  `/eng:pr-walkthrough`; this is a fast summary, not a walkthrough.
 ---
 
 # catchup: get back up to speed fast
