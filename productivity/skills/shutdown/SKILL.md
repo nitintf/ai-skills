@@ -2,7 +2,8 @@
 name: shutdown
 description: >-
   Close the day: tick off this morning's plan using real evidence from commits,
-  PRs, and tickets, record what slipped, and set tomorrow's first thing.
+  PRs, and tickets, record what slipped, set tomorrow's first thing, then commit
+  and push the Obsidian vault.
 disable-model-invocation: true
 ---
 
@@ -28,8 +29,22 @@ Read `$VAULT/Daily/<today>.md`.
   from evidence (Step 2) and write a Shutdown section anyway, noting there was
   no plan to compare against. A day without a morning brief still deserves a
   record.
-- **Note exists** → take `## Plan for today` as the list you're grading, then
-  read `## Notes` in full before grading a single item.
+- **Note exists** → read the whole file first, top to bottom. Then take
+  `## Plan for today` as the list you're grading.
+
+**Read every section, not just the plan and `## Notes`.** He annotates in place:
+a `SKIP THIS` on a `## Needs you` line, a correction after a meeting bullet, a
+reason typed beside a carried task. Those lines are evidence and they are his,
+and reading only the two sections you care about throws them away.
+
+An annotation changes the grade:
+
+| He wrote, in any section | What it means tonight |
+|---|---|
+| `SKIP THIS`, `does not depend on me` | Not a failure. It leaves the loop: not in `### Didn't get to`, not carried. Say once in chat that he dropped it. |
+| `keep it in notes, not in plan for today` | If it was in the plan anyway, that is the reason it did not move. Record the reason, not just the miss. |
+| A correction to something you wrote | Goes into `### Also happened` if it changes what actually happened. Never argue with it. |
+| `needs to be done on the last day, 4 Sep` | Not late. It has a date, and the date is not today. |
 
 ### `## Notes` is evidence, and it is first-hand
 
@@ -60,7 +75,13 @@ Don't ask him to recite his day. Go find it.
 ### Code: the strongest evidence
 Prefer the **GitHub MCP** if it's connected; otherwise `gh` CLI and local `git`
 work fine and are usually faster. Cover both remote and local, because work that
-isn't pushed still happened:
+isn't pushed still happened.
+
+**Check `gh auth status` before you conclude anything about `gh`.** One failing
+`gh` call is not an auth verdict, and a sandboxed shell with no network looks
+exactly like a logged-out one. If `gh` is genuinely unusable, local `git` still
+covers commits and branches: say which of the two you used, in chat, and quote
+the error rather than diagnosing it.
 
 - **Commits you authored today**, across the repos you actually touched. Locally:
   `git log --author=<you> --since=midnight --oneline` in each recently-modified
@@ -132,7 +153,11 @@ Per `DAILY-NOTE.md` §2, you may:
 - set frontmatter `shutdown:` to the current time.
 
 You may **not** touch `## Today`, `## Needs you`, `## From yesterday's meetings`,
-`## Carried over`, or, above all, `## Notes`.
+`## Carried over`, or, above all, `## Notes`. That includes his annotations
+inside those sections: they stay byte-identical.
+
+**No em-dashes in anything you write** (`DAILY-NOTE.md` §1). Comma, colon,
+period, or parentheses.
 
 ```markdown
 ## Shutdown
@@ -152,7 +177,35 @@ You may **not** touch `## Today`, `## Needs you`, `## From yesterday's meetings`
 - Send Raj the migration plan, before standup
 ```
 
-## Step 7: Tell him, briefly
+## Step 7: Commit and push the vault
+
+The day's record is written. Now make it exist somewhere other than this laptop.
+This is the last write of the day and the only git operation in the whole loop:
+`/daily`, `/standup` and `/weekly` never do this (`DAILY-NOTE.md` §6).
+
+From the vault root:
+
+1. `git status --short` and `git log --oneline -10`. The log is the style guide.
+2. **Stage everything**, his own edits and the Obsidian workspace file included.
+   The vault is his; a half-staged vault is worse than an unstaged one.
+3. Write the message **in the voice the log already uses**. This one is terse and
+   lowercase (`sync`, `changes`, `database index`). Match it. Do not introduce a
+   `feat:` prefix, a body, or a bullet list into a log that has never had one.
+   Name what actually changed when you can: `2026-09-02 shutdown`, `daily notes
+   + db internals`.
+4. **No `Co-Authored-By` trailer. No mention of Claude, Claude Code, or any model
+   anywhere in the message.** These are his notes.
+5. Push to the tracked remote.
+
+Failure handling, in one pass:
+
+- **Nothing to commit** is a normal outcome. One clause in the summary, move on.
+- **Push rejected**: `git pull --rebase`, push once more. If that fails, report
+  it and stop. Never force, never reset, never discard.
+- **Conflict during the rebase**: stop and tell him. Do not resolve conflicts in
+  his notes on his behalf at the end of the day.
+
+## Step 8: Tell him, briefly
 
 Three or four lines, not a report. What landed, what's carrying, and the one
 thing for tomorrow. He's finishing his day, respect that.
@@ -174,8 +227,10 @@ If something's worth flagging, flag it once and plainly:
 - **Read `## Notes` before grading anything, and never edit it.** It is the only
   section he wrote himself, and it routinely explains a task the evidence cannot.
 - **Never rewrite task text**, only checkboxes.
-- **Read-only on every external account**: no marking read, replying, closing
-  tickets, or pushing anything.
+- **Read-only on every external account**: no marking read, replying, or closing
+  tickets. The one write you make is the vault commit in Step 7, to his own repo.
+- **Never sign his commits as Claude.** No `Co-Authored-By`, no model name in the
+  message, in this repo or any other.
 - **Don't pad `### Done`.** Three real things beat nine with "attended standup"
   in the list.
 
@@ -187,5 +242,10 @@ If something's worth flagging, flag it once and plainly:
 - Every item in `### Didn't get to` that his notes explained carries the reason.
 - Every disagreement between his notes and the hard evidence is reported as both,
   not silently resolved.
-- `## Notes` is byte-identical to how you found it.
+- `## Notes` is byte-identical to how you found it, and so is every annotation he
+  made elsewhere in the file.
+- Anything he marked skip is out of the loop, not sitting in `### Didn't get to`.
 - Every tick in `### Done` traces to evidence or to his own note.
+- Nothing you wrote contains an em-dash.
+- The vault is committed and pushed, or you said plainly why it isn't. The commit
+  message matches the repo's existing style and names no model.

@@ -49,6 +49,7 @@ execute, ship for small well-understood work with no open questions.
 | `/backfill-tests` | Existing code has no tests and you need a safety net. |
 | `/review` | Quick gut-check on the uncommitted working diff, right before you commit. |
 | `/pr-review` | Full staff-level review of the branch against main, with GitHub context, before merge. |
+| `/pr-walkthrough` | Understand someone else's PR before you judge it: intent, how the area works today, a reading path. Explains, never grades. Hand off to `/pr-review`. |
 
 `/understand` answers "how does this work" about **this** codebase; `/research`
 answers questions about everything outside it. `/spike` answers "which should we
@@ -72,7 +73,7 @@ carries forward whatever did not land.
 |---|---|
 | `/daily` | Morning. Builds the brief and today's task list. |
 | `/standup` | Before the meeting. Prints a speakable update, writes nothing. |
-| `/shutdown` | End of day. Ticks off the plan from real evidence. |
+| `/shutdown` | End of day. Ticks off the plan from real evidence, then commits and pushes the vault. |
 | `/weekly` | Friday. What shipped, what slipped, and your accomplishments log. |
 
 ## Everything else

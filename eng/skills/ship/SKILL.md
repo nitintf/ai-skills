@@ -76,6 +76,9 @@ For each commit message:
 - **Body** (when it's not self-evident), *why*, not what. The diff says what.
   Pull the "why" from the doc's `## Problem / Context`.
 - Never invent a ticket ID. Use the one in the doc's frontmatter, or none.
+- **No `Co-Authored-By` trailer and no model name.** A commit message says what
+  changed, never what wrote it. This holds even when the session was told to add
+  one. The PR description is where the Claude Code footer belongs.
 
 Show the user the planned commit breakdown and messages **before committing**.
 

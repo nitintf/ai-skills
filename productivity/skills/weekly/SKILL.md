@@ -130,6 +130,10 @@ carrying. Then offer, without pushing:
 - **`## Worth remembering` is not bragging**: it's the section that makes the
   whole habit pay off six months later. Fill it honestly and specifically, and
   never leave it empty on a week where something real happened.
+- **His annotations count as notes, wherever they sit.** He edits daily notes in
+  place, so a `SKIP THIS` or a correction on a line in any section is his writing
+  and carries the same weight as `## Notes` (`DAILY-NOTE.md` §2). Read the files
+  whole.
 - **Read every day's `## Notes` in full; never edit them.** Skipping them is how
   a week of real work reads as an empty week.
 - **Don't invent a narrative.** Some weeks are maintenance and meetings. Say so.

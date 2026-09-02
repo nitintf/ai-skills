@@ -106,6 +106,7 @@ and tomorrow's `/daily` picks up whatever didn't land, so nothing leaks.
                 ↓  you work the day
 /shutdown  → ticks what got done (from commits, PRs, tickets: not from memory)
            → lists the rest under "### Didn't get to"
+           → commits and pushes the vault
                 ↓  next morning
 /daily     → carries those forward, with a day count
            → at 3+ days it stops carrying quietly and tells you to cut it
@@ -114,7 +115,7 @@ and tomorrow's `/daily` picks up whatever didn't land, so nothing leaks.
 | Skill        | What it does                                                       |
 |--------------|--------------------------------------------------------------------|
 | `/daily`     | Morning brief → **task list**. Today's calendar with prep flags, mail that genuinely needs a reply, Slack mentions you haven't answered, ticket movement, the commitments you made in yesterday's meetings, and yesterday's carry-over. |
-| `/shutdown`  | Evening. Ticks off the plan using **real evidence**, commits, PRs, reviews, ticket moves. Records what slipped, what unplanned work ate the day, and tomorrow's first thing. Edits the *same* file. |
+| `/shutdown`  | Evening. Ticks off the plan using **real evidence**, commits, PRs, reviews, ticket moves. Records what slipped, what unplanned work ate the day, and tomorrow's first thing. Edits the *same* file, then commits and pushes the vault. |
 | `/standup`   | Prints your standup update in plain, speakable English: **what you worked on, what you'll work on next.** Never mentions what didn't get done, ongoing work is phrased as ongoing. Writes nothing. |
 | `/weekly`    | Friday. What shipped, what kept slipping and *why*, planned vs unplanned split, and a **Worth remembering** section that becomes your self-review evidence. |
 

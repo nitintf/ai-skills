@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Nitin's personal Claude Code plugins: reusable skill packs for engineering, product, daily workflow, note capture, and writing.",
-    "version": "0.5.3"
+    "version": "0.5.4"
   },
   "plugins": [
     {
@@ -22,7 +22,7 @@
     {
       "name": "productivity",
       "source": "./productivity",
-      "description": "Daily working rhythm plus workflow helpers. /daily plans the day into a task list, /shutdown closes it with real evidence from commits and PRs, /standup prints a speakable update, /weekly reviews the week and builds your self-review evidence — all writing to one Obsidian daily note per day. Also: catchup, caveman, handoff, stress-test."
+      "description": "Daily working rhythm plus workflow helpers. /daily plans the day into a task list, /shutdown closes it with real evidence from commits and PRs, /standup prints a speakable update, /weekly reviews the week and builds your self-review evidence, all writing to one Obsidian daily note per day, which /shutdown commits and pushes. Also: catchup, caveman, handoff, stress-test."
     },
     {
       "name": "brain",
