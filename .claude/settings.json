@@ -1,0 +1,18 @@
+{
+  "extraKnownMarketplaces": {
+    "nitin-ai-skills": {
+      "source": {
+        "source": "github",
+        "repo": "nitintf/skills"
+      },
+      "autoUpdate": true
+    }
+  },
+  "enabledPlugins": {
+    "eng@nitin-ai-skills": true,
+    "product@nitin-ai-skills": true,
+    "productivity@nitin-ai-skills": true,
+    "brain@nitin-ai-skills": true,
+    "writing@nitin-ai-skills": true
+  }
+}
