@@ -177,7 +177,24 @@ period, or parentheses.
 - Send Raj the migration plan, before standup
 ```
 
-## Step 7: Commit and push the vault
+## Step 7: On a Friday, archive the week
+
+Only on Fridays, and only after the `## Shutdown` section is written.
+
+`Daily/` holds the current week; everything older belongs in
+`$VAULT/Daily/Archive/` (`DAILY-NOTE.md` §7). `git mv` every note dated before
+this week's Monday into it, creating the directory if it does not exist. Today's
+note stays put: the week is not over until it is filed, and it gets archived by
+next Friday's run.
+
+Do it before Step 8 so the moves and tonight's note land in one commit.
+
+Never delete and never rename. If Friday is missed, the next `/daily` picks it
+up as a catch-up, so a skipped Friday costs nothing.
+
+---
+
+## Step 8: Commit and push the vault
 
 The day's record is written. Now make it exist somewhere other than this laptop.
 This is the last write of the day and the only git operation in the whole loop:
@@ -205,7 +222,7 @@ Failure handling, in one pass:
 - **Conflict during the rebase**: stop and tell him. Do not resolve conflicts in
   his notes on his behalf at the end of the day.
 
-## Step 8: Tell him, briefly
+## Step 9: Tell him, briefly
 
 Three or four lines, not a report. What landed, what's carrying, and the one
 thing for tomorrow. He's finishing his day, respect that.
@@ -228,7 +245,7 @@ If something's worth flagging, flag it once and plainly:
   section he wrote himself, and it routinely explains a task the evidence cannot.
 - **Never rewrite task text**, only checkboxes.
 - **Read-only on every external account**: no marking read, replying, or closing
-  tickets. The one write you make is the vault commit in Step 7, to his own repo.
+  tickets. The one write you make is the vault commit in Step 8, to his own repo.
 - **Never sign his commits as Claude.** No `Co-Authored-By`, no model name in the
   message, in this repo or any other.
 - **Don't pad `### Done`.** Three real things beat nine with "attended standup"
@@ -247,5 +264,7 @@ If something's worth flagging, flag it once and plainly:
 - Anything he marked skip is out of the loop, not sitting in `### Didn't get to`.
 - Every tick in `### Done` traces to evidence or to his own note.
 - Nothing you wrote contains an em-dash.
+- On a Friday, every note older than this week's Monday is in `Daily/Archive/`
+  and moved with `git mv`, not copied or deleted.
 - The vault is committed and pushed, or you said plainly why it isn't. The commit
   message matches the repo's existing style and names no model.

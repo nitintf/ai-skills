@@ -8,7 +8,8 @@ That only works if every skill agrees on the sections below and, critically,
 **edits only the sections it owns**. This file is the agreement.
 
 ```
-$VAULT/Daily/<YYYY-MM-DD>.md            # the daily note
+$VAULT/Daily/<YYYY-MM-DD>.md            # the daily note, current week only
+$VAULT/Daily/Archive/<YYYY-MM-DD>.md    # every earlier day, same filename (see §7)
 $VAULT/Daily/Weekly/<YYYY>-W<ww>.md     # the weekly review (different cadence, own file)
 ```
 
@@ -266,7 +267,36 @@ git: one write per day, at the end, when the day is actually done.
 
 ---
 
-## 7. Anchors for editing
+## 7. The weekly archive (`Daily/Archive/`)
+
+`Daily/` holds the current week. Everything older lives in `Daily/Archive/`,
+flat, same filenames, nothing renamed.
+
+**The boundary is the Monday of the week you are running in.** A note dated on
+or after that Monday is current. Anything earlier belongs in the archive.
+
+Who moves them:
+
+- **`/shutdown` on a Friday**, after the `## Shutdown` section is written and
+  before the vault commit, so the move and the note land in one commit.
+- **`/daily` on any run that finds stale notes**, as a catch-up, because Friday
+  shutdowns get missed. Move first, then read. A Monday `/daily` that finds last
+  week still sitting in `Daily/` archives it and carries on.
+
+Never delete, never rewrite, never rename. Use `git mv` so history follows the
+file. Committing is `/shutdown`'s job either way (§6); `/daily` moves files and
+leaves them staged.
+
+**Archiving changes filing, not reach.** Every skill that looks for "the most
+recent existing note" searches `Daily/` first, then `Daily/Archive/`, and reads
+whichever is newest by date. A Monday brief still picks Friday's shutdown out of
+the archive, `/weekly` still reads a full week out of it, and a carried task
+still keeps its day count across the boundary. If a skill can only see `Daily/`,
+the archive has broken the loop, and that is a bug in the skill.
+
+---
+
+## 8. Anchors for editing
 
 Skills find their section by exact `##` heading match. When editing:
 

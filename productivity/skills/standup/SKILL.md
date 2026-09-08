@@ -37,7 +37,8 @@ Same information, and the first one is what a person actually says in standup.
 
 You already have all of it. Read, in this order:
 
-1. **Yesterday's daily note**: `$VAULT/Daily/<most recent>.md`, the
+1. **Yesterday's daily note**: the most recent note across `$VAULT/Daily/` and
+   `$VAULT/Daily/Archive/` (`DAILY-NOTE.md` §7), the
    `## Shutdown → ### Done` and `### Also happened` sections. This is the best
    source for "what I worked on", because it was written with real evidence.
 2. **Today's daily note**: `## Plan for today`. This is "what I will work on

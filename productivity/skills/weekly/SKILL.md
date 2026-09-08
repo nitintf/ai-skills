@@ -21,7 +21,9 @@ reading from and the weekly file's location.
 
 ## Step 1: Read the week
 
-Load every `$VAULT/Daily/<date>.md` from Monday to today. From each:
+Load every daily note from Monday to today, looking in `$VAULT/Daily/` and then
+`$VAULT/Daily/Archive/` (`DAILY-NOTE.md` §7). A week that has already been
+archived reads exactly the same. From each:
 
 - `## Plan for today`: what he intended, and which boxes are ticked.
 - `## Shutdown → ### Done`, what landed.
